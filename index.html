@@ -1,0 +1,1332 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes"><title>RMP · Multi X</title>
+<style>*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}body{background:#070b14;color:#e2e8f0;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif}input,select{-webkit-appearance:none;appearance:none}select option{background:#0f172a;color:#e2e8f0}#lock{position:fixed;inset:0;background:#070b14;display:flex;align-items:center;justify-content:center;z-index:9999;padding:24px}.lcard{background:rgba(255,255,255,.04);border:1px solid rgba(0,207,255,.18);border-radius:20px;padding:36px 28px;width:100%;max-width:340px;text-align:center}.llogo{mix-blend-mode:screen;width:70%;max-width:200px;display:block;margin:0 auto 16px}.lcard h1{font-size:15px;font-weight:600;color:#94a3b8;margin-bottom:2px}.lcard h2{font-size:11px;font-weight:400;color:#4a6580;margin-bottom:24px}#pwd{width:100%;padding:14px;background:rgba(255,255,255,.06);border:1px solid rgba(0,207,255,.25);border-radius:10px;color:#fff;font-size:20px;letter-spacing:6px;text-align:center;font-family:monospace;outline:none;margin-bottom:12px;-webkit-appearance:none}#lbtn{width:100%;padding:16px;background:rgba(0,207,255,.15);border:1px solid rgba(0,207,255,.4);border-radius:10px;color:#00cfff;font-size:18px;font-weight:700;cursor:pointer;font-family:inherit;-webkit-appearance:none;touch-action:manipulation}.lerr{font-size:12px;color:#ef4444;margin-top:10px;min-height:18px}#app{display:none}</style>
+</head><body>
+<div id="lock"><div class="lcard">
+  <img class="llogo" src="data:image/png;base64,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" alt="Multi X">
+  <h1>RMP · Retorno Materia Prima</h1><h2>Raw Material Return</h2>
+  <input id="pwd" type="password" placeholder="••••••••" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" onkeydown="if(event.key==='Enter')doLogin()">
+  <button id="lbtn" onclick="doLogin()" type="button">Enter</button>
+  <div class="lerr" id="lerr"></div>
+</div></div>
+<div id="app"></div>
+<script type="application/json" id="rmp-data">{"products":{"X Region|Fresh|Trim D Normal":{"Region":"X Region","Condicion":"Fresh","FamiliaProducto":"Trim D","Producto":"Trim D Normal","FamiliaPack":"Fresh - Trim","yield_":0.6051,"cv":0.51,"cf":0.21,"frig":0.03,"exp":0.104268},"X Region|Fresh|Trim D+":{"Region":"X Region","Condicion":"Fresh","FamiliaProducto":"Trim D","Producto":"Trim D+","FamiliaPack":"Fresh - Trim","yield_":0.5942,"cv":0.51,"cf":0.21,"frig":0.03,"exp":0.104268},"X Region|Fresh|Trim D++":{"Region":"X Region","Condicion":"Fresh","FamiliaProducto":"Trim D","Producto":"Trim D++","FamiliaPack":"Fresh - Trim","yield_":0.5701,"cv":0.513,"cf":0.21,"frig":0.03,"exp":0.104268},"X Region|Fresh|Trim D Sin Escamas":{"Region":"X Region","Condicion":"Fresh","FamiliaProducto":"Trim D","Producto":"Trim D Sin Escamas","FamiliaPack":"Fresh - Trim","yield_":0.5825,"cv":0.51,"cf":0.21,"frig":0.03,"exp":0.104268},"X Region|Fresh|Trim D++ Sin Escamas":{"Region":"X Region","Condicion":"Fresh","FamiliaProducto":"Trim D","Producto":"Trim D++ Sin Escamas","FamiliaPack":"Fresh - Trim","yield_":0.5595,"cv":0.513,"cf":0.21,"frig":0.03,"exp":0.104268},"X Region|Fresh|Trim D Industrial":{"Region":"X Region","Condicion":"Fresh","FamiliaProducto":"Trim D","Producto":"Trim D Industrial","FamiliaPack":"Fresh - Trim","yield_":0.5785,"cv":0.51,"cf":0.21,"frig":0.03,"exp":0.104268},"X Region|Fresh|Trim E Full Fat":{"Region":"X Region","Condicion":"Fresh","FamiliaProducto":"Trim E ","Producto":"Trim E Full Fat","FamiliaPack":"Fresh - Trim","yield_":0.4884,"cv":0.734,"cf":0.21,"frig":0.03,"exp":0.104268},"X Region|Fresh|Trim E Deep Skin":{"Region":"X Region","Condicion":"Fresh","FamiliaProducto":"Trim E ","Producto":"Trim E Deep Skin","FamiliaPack":"Fresh - Trim","yield_":0.4538,"cv":0.755,"cf":0.21,"frig":0.03,"exp":0.104268},"X Region|Fresh|Trim F Loin Cut":{"Region":"X Region","Condicion":"Fresh","FamiliaProducto":"Trim F","Producto":"Trim F Loin Cut","FamiliaPack":"Fresh - Trim","yield_":0.4311,"cv":0.86,"cf":0.21,"frig":0.03,"exp":0.104268},"X Region|Fresh|Trim E Industrial":{"Region":"X Region","Condicion":"Fresh","FamiliaProducto":"Trim E ","Producto":"Trim E Industrial","FamiliaPack":"Fresh - Trim","yield_":0.461,"cv":0.74,"cf":0.21,"frig":0.03,"exp":0.104268},"X Region|Fresh|Trim A s/Esc":{"Region":"X Region","Condicion":"Fresh","FamiliaProducto":"Trim A","Producto":"Trim A s/Esc","FamiliaPack":"Fresh - Trim A","yield_":0.6436,"cv":0.512,"cf":0.21,"frig":0.03,"exp":0.104268},"X Region|Fresh|Trim A c/Esc":{"Region":"X Region","Condicion":"Fresh","FamiliaProducto":"Trim A","Producto":"Trim A c/Esc","FamiliaPack":"Fresh - Trim A","yield_":0.6508,"cv":0.512,"cf":0.21,"frig":0.03,"exp":0.104268},"X Region|Fresh|HON Brasil":{"Region":"X Region","Condicion":"Fresh","FamiliaProducto":"HON","Producto":"HON Brasil","FamiliaPack":"Fresh - HON Brasil","yield_":0.8785,"cv":0.136,"cf":0.21,"frig":0.03,"exp":0.0},"X Region|Fresh|HON":{"Region":"X Region","Condicion":"Fresh","FamiliaProducto":"HON","Producto":"HON","FamiliaPack":"Fresh - HON","yield_":0.8785,"cv":0.136,"cf":0.21,"frig":0.03,"exp":0.104268},"X Region|Fresh|HG":{"Region":"X Region","Condicion":"Fresh","FamiliaProducto":"HON","Producto":"HG","FamiliaPack":"Fresh - Hg","yield_":0.7931,"cv":0.16,"cf":0.21,"frig":0.03,"exp":0.104268},"X Region|Fresh|HON China":{"Region":"X Region","Condicion":"Fresh","FamiliaProducto":"HON","Producto":"HON China","FamiliaPack":"Fresh - HON China","yield_":0.8785,"cv":0.136,"cf":0.21,"frig":0.03,"exp":0.104268},"X Region|Fresh|HON China SP":{"Region":"X Region","Condicion":"Fresh","FamiliaProducto":"HON","Producto":"HON China SP","FamiliaPack":"Fresh - HON China SP","yield_":0.8785,"cv":0.3425,"cf":0.21,"frig":0,"exp":0.31998253968253965},"X Region|Frozen|HON":{"Region":"X Region","Condicion":"Frozen","FamiliaProducto":"HON","Producto":"HON","FamiliaPack":"Frozen - HON","yield_":0.8686,"cv":0.176,"cf":0.21,"frig":0.16,"exp":0.095375},"X Region|Frozen|HG":{"Region":"X Region","Condicion":"Frozen","FamiliaProducto":"HON","Producto":"HG","FamiliaPack":"Frozen - HON","yield_":0.7841623904382472,"cv":0.176,"cf":0.21,"frig":0.16,"exp":0.095375},"X Region|Frozen|Trim D IQF Ind":{"Region":"X Region","Condicion":"Frozen","FamiliaProducto":"Trim D","Producto":"Trim D IQF Ind","FamiliaPack":"Frozen - Trim IQF","yield_":0.5625,"cv":0.545,"cf":0.21,"frig":0.16,"exp":0.095375},"X Region|Frozen|Trim D IVP":{"Region":"X Region","Condicion":"Frozen","FamiliaProducto":"Trim D","Produto":"Trim D IVP","Producto":"Trim D IVP","FamiliaPack":"Frozen - Trim D","yield_":0.5968452617411933,"cv":0.64,"cf":0.21,"frig":0.16,"exp":0.095375},"X Region|Frozen|Trim D IVP s/Esc":{"Region":"X Region","Condicion":"Frozen","FamiliaProducto":"Trim D","Producto":"Trim D IVP s/Esc","FamiliaPack":"Frozen - Trim D","yield_":0.5868452617411933,"cv":0.64,"cf":0.21,"frig":0.16,"exp":0.095375},"X Region|Frozen|Trim D Patagon IVP":{"Region":"X Region","Condicion":"Frozen","FamiliaProducto":"Trim D","Producto":"Trim D Patagon IVP","FamiliaPack":"Frozen - Trim D","yield_":0.5968452617411933,"cv":0.64,"cf":0.21,"frig":0.16,"exp":0.095375},"X Region|Frozen|Trim D++ IVP":{"Region":"X Region","Condicion":"Frozen","FamiliaProducto":"Trim D","Producto":"Trim D++ IVP","FamiliaPack":"Frozen - Trim D","yield_":0.5467,"cv":0.66,"cf":0.21,"frig":0.16,"exp":0.095375},"X Region|Frozen|Trim C s/Esc IVP":{"Region":"X Region","Condicion":"Frozen","FamiliaProducto":"Trim C","Producto":"Trim C s/Esc IVP","FamiliaPack":"Frozen - Trim D","yield_":0.6145,"cv":0.6,"cf":0.21,"frig":0.16,"exp":0.095375},"X Region|Frozen|Block c/Grasa":{"Region":"X Region","Condicion":"Frozen","FamiliaProducto":"Block","Producto":"Block c/Grasa","FamiliaPack":"Frozen - Block","yield_":0.4473,"cv":0.543,"cf":0.21,"frig":0.16,"exp":0.095375},"X Region|Frozen|Block s/Grasa":{"Region":"X Region","Condicion":"Frozen","FamiliaProducto":"Block","Producto":"Block s/Grasa","FamiliaPack":"Frozen - Block","yield_":0.4306,"cv":0.578,"cf":0.21,"frig":0.16,"exp":0.095375},"X Region|Frozen|Trim E IVP":{"Region":"X Region","Condicion":"Frozen","FamiliaProducto":"Trim E ","Producto":"Trim E IVP","FamiliaPack":"Frozen - Trim E","yield_":0.4573,"cv":1.013,"cf":0.21,"frig":0.16,"exp":0.095375},"X Region|Frozen|Trim E IVP Catch Weight":{"Region":"X Region","Condicion":"Frozen","FamiliaProducto":"Trim E ","Producto":"Trim E IVP Catch Weight","FamiliaPack":"Frozen - Trim E","yield_":0.4573,"cv":1.013,"cf":0.21,"frig":0.16,"exp":0.095375},"X Region|Frozen|Trim E IQF Ind":{"Region":"X Region","Condicion":"Frozen","FamiliaProducto":"Trim E ","Producto":"Trim E IQF Ind","FamiliaPack":"Frozen - Trim IQF","yield_":0.4573,"cv":0.873,"cf":0.21,"frig":0.16,"exp":0.095375},"XII Region|Fresh|Trim D Normal":{"Region":"XII Region","Condicion":"Fresh","FamiliaProducto":"Trim D","Producto":"Trim D Normal","FamiliaPack":"Fresh - Trim","yield_":0.594,"cv":1.408,"cf":0.0,"frig":0.03,"exp":0.0},"XII Region|Fresh|Trim D+":{"Region":"XII Region","Condicion":"Fresh","FamiliaProducto":"Trim D","Producto":"Trim D+","FamiliaPack":"Fresh - Trim","yield_":0.594,"cv":1.408,"cf":0.0,"frig":0.03,"exp":0.0},"XII Region|Fresh|Trim D++":{"Region":"XII Region","Condicion":"Fresh","FamiliaProducto":"Trim D","Producto":"Trim D++","FamiliaPack":"Fresh - Trim","yield_":0.57,"cv":1.408,"cf":0.0,"frig":0.03,"exp":0.0},"XII Region|Fresh|Trim D++ s/ESC":{"Region":"XII Region","Condicion":"Fresh","FamiliaProducto":"Trim D","Producto":"Trim D++ s/ESC","FamiliaPack":"Fresh - Trim","yield_":0.56,"cv":1.408,"cf":0.0,"frig":0.03,"exp":0.0},"XII Region|Fresh|Trim D Sin Escamas":{"Region":"XII Region","Condicion":"Fresh","FamiliaProducto":"Trim D","Producto":"Trim D Sin Escamas","FamiliaPack":"Fresh - Trim","yield_":0.5627,"cv":1.429,"cf":0.0,"frig":0.03,"exp":0.0},"XII Region|Fresh|Trim E Full Fat":{"Region":"XII Region","Condicion":"Fresh","FamiliaProducto":"Trim E ","Producto":"Trim E Full Fat","FamiliaPack":"Fresh - Trim","yield_":0.45,"cv":1.721,"cf":0.0,"frig":0.03,"exp":0.0},"XII Region|Fresh|Trim E Deep Skin":{"Region":"XII Region","Condicion":"Fresh","FamiliaProducto":"Trim E ","Producto":"Trim E Deep Skin","FamiliaPack":"Fresh - Trim","yield_":0.45,"cv":1.721,"cf":0.0,"frig":0.03,"exp":0.0},"XII Region|Fresh|Trim F Loin Cut":{"Region":"XII Region","Condicion":"Fresh","FamiliaProducto":"Trim F","Producto":"Trim F Loin Cut","FamiliaPack":"Fresh - Trim","yield_":0,"cv":2.973,"cf":0.0,"frig":0.03,"exp":0.0},"XII Region|Fresh|HON":{"Region":"XII Region","Condicion":"Fresh","FamiliaProducto":"HON","Producto":"HON","FamiliaPack":"Fresh - HON","yield_":0.8864,"cv":0.518,"cf":0.0,"frig":0.03,"exp":0.0},"XII Region|Fresh|HON Arka":{"Region":"XII Region","Condicion":"Fresh","FamiliaProducto":"HON","Producto":"HON Arka","FamiliaPack":"Fresh - HON Arka","yield_":0.8864,"cv":0.518,"cf":0.0,"frig":0.03,"exp":0.0},"XII Region|Fresh|HON Brasil":{"Region":"XII Region","Condicion":"Fresh","FamiliaProducto":"HON","Producto":"HON Brasil","FamiliaPack":"Fresh - HON Brasil","yield_":0.8864,"cv":0.518,"cf":0.0,"frig":0.03,"exp":0.0},"XII Region|Fresh|HON China":{"Region":"XII Region","Condicion":"Fresh","FamiliaProducto":"HON","Producto":"HON China","FamiliaPack":"Fresh - HON China","yield_":0.8864,"cv":0.518,"cf":0.0,"frig":0.03,"exp":0.0},"XII Region|Fresh|HON China DUM":{"Region":"XII Region","Condicion":"Fresh","FamiliaProducto":"HON","Producto":"HON China DUM","FamiliaPack":"Fresh - HON China","yield_":0.8864,"cv":0.535,"cf":0.0,"frig":0.03,"exp":0.45257142857142857},"XII Region|Fresh|HG":{"Region":"XII Region","Condicion":"Fresh","FamiliaProducto":"HON","Producto":"HG","FamiliaPack":"Fresh - HON","yield_":0.0,"cv":0.518,"cf":0.0,"frig":0.03,"exp":0.0},"XII Region|Frozen|HON":{"Region":"XII Region","Condicion":"Frozen","FamiliaProducto":"HON","Producto":"HON","FamiliaPack":"Frozen - HON","yield_":0.88,"cv":0.626,"cf":0.0,"frig":0.16,"exp":0.238708},"XII Region|Frozen|Trim D IVP":{"Region":"XII Region","Condicion":"Frozen","FamiliaProducto":"Trim D","Producto":"Trim D IVP","FamiliaPack":"Frozen - Trim D","yield_":0.5968452617411933,"cv":1.544,"cf":0.0,"frig":0.16,"exp":0.238708},"XII Region|Frozen|Trim D Patagon IVP":{"Region":"XII Region","Condicion":"Frozen","FamiliaProducto":"Trim D","Producto":"Trim D Patagon IVP","FamiliaPack":"Frozen - Trim D","yield_":0.5968452617411933,"cv":1.544,"cf":0.0,"frig":0.16,"exp":0.238708},"XII Region|Frozen|Trim D IQF Ind":{"Region":"XII Region","Condicion":"Frozen","FamiliaProducto":"Trim D","Producto":"Trim D IQF Ind","FamiliaPack":"Frozen - Trim IQF","yield_":0.5968452617411933,"cv":1.538,"cf":0.0,"frig":0.16,"exp":0.238708},"XII Region|Frozen|Trim C s/Esc IVP":{"Region":"XII Region","Condicion":"Frozen","FamiliaProducto":"Trim C","Producto":"Trim C s/Esc IVP","FamiliaPack":"Frozen - Trim D","yield_":0.6145,"cv":1.544,"cf":0.0,"frig":0.16,"exp":0.238708},"XII Region|Frozen|Trim E IVP":{"Region":"XII Region","Condicion":"Frozen","FamiliaProducto":"Trim E ","Producto":"Trim E IVP","FamiliaPack":"Frozen - Trim E","yield_":0.4607570228028887,"cv":1.982,"cf":0.0,"frig":0.16,"exp":0.238708},"XII Region|Frozen|Trim E IVP Catch Weight":{"Region":"XII Region","Condicion":"Frozen","FamiliaProducto":"Trim E ","Producto":"Trim E IVP Catch Weight","FamiliaPack":"Frozen - Trim E","yield_":0.4607570228028887,"cv":1.982,"cf":0.0,"frig":0.16,"exp":0.238708},"XII Region|Frozen|Trim E IQF Ind":{"Region":"XII Region","Condicion":"Frozen","FamiliaProducto":"Trim E ","Producto":"Trim E IQF Ind","FamiliaPack":"Frozen - Trim IQF","yield_":0.42999999999999994,"cv":1.773,"cf":0.0,"frig":0.16,"exp":0.238708}},"fletes":{"X Region|Aéreo|Colombia (aéreo)":{"flete":1.57,"despacho":"Air"},"X Region|Aéreo|Guanzhou (aéreo)":{"flete":2.7,"despacho":"Air"},"X Region|Aéreo|Mexico (aéreo)":{"flete":1.86,"despacho":"Air"},"X Region|Aéreo|Peru (aéreo)":{"flete":1.36,"despacho":"Air"},"X Region|Aéreo|Pekin (aéreo)":{"flete":2.2,"despacho":"Air"},"X Region|Aéreo|ICN":{"flete":2.7,"despacho":"Air"},"X Region|Aéreo|Shanghai (aéreo)":{"flete":2.15,"despacho":"Air"},"X Region|Aéreo|Sydney":{"flete":2.26,"despacho":"Air"},"X Region|Aéreo|Tel Aviv (aéreo)":{"flete":3.55,"despacho":"Air"},"X Region|Aéreo|HND":{"flete":2.72,"despacho":"Air"},"X Region|Aéreo|Bangkok (BKK)":{"flete":2.8,"despacho":"Air"},"X Region|Aéreo|KIX":{"flete":2.72,"despacho":"Air"},"X Region|Aéreo|Usa-ATL (aéreo)":{"flete":2.23,"despacho":"Air"},"X Region|Aéreo|Usa-IAH (aéreo)":{"flete":1.82,"despacho":"Air"},"X Region|Aéreo|Usa-JFK (aéreo)":{"flete":1.72,"despacho":"Air"},"X Region|Aéreo|Usa-LAX (aéreo)":{"flete":2.09,"despacho":"Air"},"X Region|Aéreo|Usa-Mia (aéreo)":{"flete":1.47,"despacho":"Air"},"X Region|Aéreo|Usa-SEA (aéreo)":{"flete":2.4,"despacho":"Air"},"X Region|Aéreo|Montevideo MVD":{"flete":1.33,"despacho":"Air"},"X Region|Aéreo|Br-GRU (aéreo)":{"flete":0,"despacho":"Air"},"XII Region|Aéreo|Shanghai (aéreo)":{"flete":2.15,"despacho":"Air"},"XII Region|Aéreo|Usa-JFK (aéreo)":{"flete":2.13,"despacho":"Air"},"XII Region|Aéreo|Usa-LAX (aéreo)":{"flete":2.52,"despacho":"Air"},"XII Region|Aéreo|Usa-Mia (aéreo)":{"flete":1.38,"despacho":"Air"},"X Region|Terrestre|Chile":{"flete":0,"despacho":"Land"},"XII Region|Terrestre|Chile":{"flete":0,"despacho":"Land"},"X Region|Marítimo|Amberes":{"flete":3393.6,"despacho":"Maritime"},"XII Region|Marítimo|Amberes":{"flete":3393.6,"despacho":"Maritime"},"X Region|Marítimo|Ashdod":{"flete":6785,"despacho":"Maritime"},"XII Region|Marítimo|Ashdod":{"flete":6785,"despacho":"Maritime"},"X Region|Marítimo|Baltimore":{"flete":4833,"despacho":"Maritime"},"XII Region|Marítimo|Baltimore":{"flete":4833,"despacho":"Maritime"},"X Region|Marítimo|Bilbao":{"flete":3800.25,"despacho":"Maritime"},"XII Region|Marítimo|Bilbao":{"flete":3800.25,"despacho":"Maritime"},"X Region|Marítimo|Boulogne sur Mer":{"flete":4044.6,"despacho":"Maritime"},"XII Region|Marítimo|Boulogne sur Mer":{"flete":4044.6,"despacho":"Maritime"},"X Region|Marítimo|Buenaventura":{"flete":2955.65,"despacho":"Maritime"},"XII Region|Marítimo|Buenaventura":{"flete":2955.65,"despacho":"Maritime"},"X Region|Marítimo|Busan":{"flete":2150,"despacho":"Maritime"},"XII Region|Marítimo|Busan":{"flete":2150,"despacho":"Maritime"},"X Region|Marítimo|Caldera":{"flete":3812.5,"despacho":"Maritime"},"XII Region|Marítimo|Caldera":{"flete":3812.5,"despacho":"Maritime"},"X Region|Marítimo|Cartagena":{"flete":3815,"despacho":"Maritime"},"XII Region|Marítimo|Cartagena":{"flete":3815,"despacho":"Maritime"},"X Region|Marítimo|Chicago":{"flete":7548,"despacho":"Maritime"},"XII Region|Marítimo|Chicago":{"flete":7548,"despacho":"Maritime"},"X Region|Marítimo|Constanta":{"flete":7082,"despacho":"Maritime"},"XII Region|Marítimo|Constanta":{"flete":7082,"despacho":"Maritime"},"X Region|Marítimo|Ciudad de México":{"flete":4380,"despacho":"Maritime"},"XII Region|Marítimo|Ciudad de México":{"flete":4380,"despacho":"Maritime"},"X Region|Marítimo|Houston":{"flete":4848,"despacho":"Maritime"},"XII Region|Marítimo|Houston":{"flete":4848,"despacho":"Maritime"},"X Region|Marítimo|General Santos":{"flete":0,"despacho":"Maritime"},"XII Region|Marítimo|General Santos":{"flete":0,"despacho":"Maritime"},"X Region|Marítimo|Cebu":{"flete":3240.4,"despacho":"Maritime"},"XII Region|Marítimo|Cebu":{"flete":3240.4,"despacho":"Maritime"},"X Region|Marítimo|Guayaquil":{"flete":3012.5,"despacho":"Maritime"},"XII Region|Marítimo|Guayaquil":{"flete":3012.5,"despacho":"Maritime"},"X Region|Marítimo|Halifax":{"flete":0,"despacho":"Maritime"},"XII Region|Marítimo|Halifax":{"flete":0,"despacho":"Maritime"},"X Region|Marítimo|Hamburgo":{"flete":2733.48,"despacho":"Maritime"},"XII Region|Marítimo|Hamburgo":{"flete":2733.48,"despacho":"Maritime"},"X Region|Marítimo|Ho Chi Min - Catlai port":{"flete":2820.4,"despacho":"Maritime"},"XII Region|Marítimo|Ho Chi Min - Catlai port":{"flete":2820.4,"despacho":"Maritime"},"X Region|Marítimo|Jacksonville":{"flete":4715,"despacho":"Maritime"},"XII Region|Marítimo|Jacksonville":{"flete":4715,"despacho":"Maritime"},"X Region|Marítimo|Long Beach / LA":{"flete":4848,"despacho":"Maritime"},"XII Region|Marítimo|Long Beach / LA":{"flete":4848,"despacho":"Maritime"},"X Region|Marítimo|Philadelphia":{"flete":4870.594,"despacho":"Maritime"},"XII Region|Marítimo|Philadelphia":{"flete":4870.594,"despacho":"Maritime"},"X Region|Marítimo|Jakarta":{"flete":3270.4,"despacho":"Maritime"},"XII Region|Marítimo|Jakarta":{"flete":3270.4,"despacho":"Maritime"},"X Region|Marítimo|Kaohsiung":{"flete":2400.4,"despacho":"Maritime"},"XII Region|Marítimo|Kaohsiung":{"flete":2400.4,"despacho":"Maritime"},"X Region|Marítimo|Keelung":{"flete":2130.4,"despacho":"Maritime"},"XII Region|Marítimo|Keelung":{"flete":2130.4,"despacho":"Maritime"},"X Region|Marítimo|La Guaira":{"flete":5415,"despacho":"Maritime"},"XII Region|Marítimo|La Guaira":{"flete":5415,"despacho":"Maritime"},"X Region|Marítimo|Lat Krabang":{"flete":2780,"despacho":"Maritime"},"XII Region|Marítimo|Lat Krabang":{"flete":2780,"despacho":"Maritime"},"X Region|Marítimo|Le Havre":{"flete":3662.4,"despacho":"Maritime"},"XII Region|Marítimo|Le Havre":{"flete":3662.4,"despacho":"Maritime"},"X Region|Marítimo|Leixoes":{"flete":3855.6,"despacho":"Maritime"},"XII Region|Marítimo|Leixoes":{"flete":3855.6,"despacho":"Maritime"},"X Region|Marítimo|Algeciras":{"flete":3438,"despacho":"Maritime"},"XII Region|Marítimo|Algeciras":{"flete":3438,"despacho":"Maritime"},"X Region|Marítimo|Klaipeda ":{"flete":3765,"despacho":"Maritime"},"XII Region|Marítimo|Klaipeda ":{"flete":3765,"despacho":"Maritime"},"X Region|Marítimo|New York":{"flete":0,"despacho":"Maritime"},"XII Region|Marítimo|New York":{"flete":0,"despacho":"Maritime"},"X Region|Marítimo|Manila":{"flete":2722,"despacho":"Maritime"},"XII Region|Marítimo|Manila":{"flete":2722,"despacho":"Maritime"},"X Region|Marítimo|Manzanillo":{"flete":2272.98,"despacho":"Maritime"},"XII Region|Marítimo|Manzanillo":{"flete":2272.98,"despacho":"Maritime"},"X Region|Marítimo|Melbourne":{"flete":6600,"despacho":"Maritime"},"XII Region|Marítimo|Melbourne":{"flete":6600,"despacho":"Maritime"},"X Region|Marítimo|Montego":{"flete":0,"despacho":"Maritime"},"XII Region|Marítimo|Montego":{"flete":0,"despacho":"Maritime"},"X Region|Marítimo|Montreal":{"flete":6785,"despacho":"Maritime"},"XII Region|Marítimo|Montreal":{"flete":6785,"despacho":"Maritime"},"X Region|Marítimo|Newark":{"flete":4863.494,"despacho":"Maritime"},"XII Region|Marítimo|Newark":{"flete":4863.494,"despacho":"Maritime"},"X Region|Marítimo|Norfolk":{"flete":5148,"despacho":"Maritime"},"XII Region|Marítimo|Norfolk":{"flete":5148,"despacho":"Maritime"},"X Region|Marítimo|Penang":{"flete":3120.4,"despacho":"Maritime"},"XII Region|Marítimo|Penang":{"flete":3120.4,"despacho":"Maritime"},"X Region|Marítimo|Point des Galets":{"flete":4072.2,"despacho":"Maritime"},"XII Region|Marítimo|Point des Galets":{"flete":4072.2,"despacho":"Maritime"},"X Region|Marítimo|Port Klang":{"flete":3060,"despacho":"Maritime"},"XII Region|Marítimo|Port Klang":{"flete":3060,"despacho":"Maritime"},"X Region|Marítimo|Qingdao":{"flete":2431.6,"despacho":"Maritime"},"XII Region|Marítimo|Qingdao":{"flete":2431.6,"despacho":"Maritime"},"X Region|Marítimo|San Juan":{"flete":4315,"despacho":"Maritime"},"XII Region|Marítimo|San Juan":{"flete":4315,"despacho":"Maritime"},"X Region|Marítimo|Saint Petersburg":{"flete":10140.040485829959,"despacho":"Maritime"},"XII Region|Marítimo|Saint Petersburg":{"flete":10140.040485829959,"despacho":"Maritime"},"X Region|Marítimo|Savannah":{"flete":4798,"despacho":"Maritime"},"XII Region|Marítimo|Savannah":{"flete":4798,"despacho":"Maritime"},"X Region|Marítimo|Seattle":{"flete":6285,"despacho":"Maritime"},"XII Region|Marítimo|Seattle":{"flete":6285,"despacho":"Maritime"},"X Region|Marítimo|Shanghai":{"flete":2130,"despacho":"Maritime"},"XII Region|Marítimo|Shanghai":{"flete":2130,"despacho":"Maritime"},"X Region|Marítimo|Sidney":{"flete":6600,"despacho":"Maritime"},"XII Region|Marítimo|Sidney":{"flete":6600,"despacho":"Maritime"},"X Region|Marítimo|Singapour":{"flete":2970.4,"despacho":"Maritime"},"XII Region|Marítimo|Singapour":{"flete":2970.4,"despacho":"Maritime"},"X Region|Marítimo|Szczecin":{"flete":3736.975,"despacho":"Maritime"},"XII Region|Marítimo|Szczecin":{"flete":3736.975,"despacho":"Maritime"},"X Region|Marítimo|Genova":{"flete":3892.8,"despacho":"Maritime"},"XII Region|Marítimo|Genova":{"flete":3892.8,"despacho":"Maritime"},"X Region|Marítimo|Tianjin":{"flete":2410.4,"despacho":"Maritime"},"XII Region|Marítimo|Tianjin":{"flete":2410.4,"despacho":"Maritime"},"X Region|Marítimo|Tokyo":{"flete":2316,"despacho":"Maritime"},"XII Region|Marítimo|Tokyo":{"flete":2316,"despacho":"Maritime"},"X Region|Marítimo|Toronto":{"flete":6785,"despacho":"Maritime"},"XII Region|Marítimo|Toronto":{"flete":6785,"despacho":"Maritime"},"X Region|Marítimo|Sihanoukville":{"flete":3160,"despacho":"Maritime"},"XII Region|Marítimo|Sihanoukville":{"flete":3160,"despacho":"Maritime"},"X Region|Marítimo|Port Everglades":{"flete":4763.494,"despacho":"Maritime"},"XII Region|Marítimo|Port Everglades":{"flete":4763.494,"despacho":"Maritime"}},"ce":{"X Region|Fresh - Hg|25 kg":0.1507,"X Region|Fresh - Hg|75 lb":0.1507,"X Region|Fresh - HON|55 lb":0.23,"X Region|Fresh - HON Brasil|75 lb":0.1507,"X Region|Fresh - HON China|25 kg 5-6kg":0.244,"X Region|Fresh - HON China|25 kg 6+ kg":0.244,"X Region|Fresh - HON China SP|25 kg 5-6 kg":0.26,"X Region|Fresh - HON China SP|25 kg 6+ kg":0.26,"X Region|Fresh - Trim|35 lb":0.152,"X Region|Fresh - Trim|10 lb":0.29,"X Region|Fresh - Trim A|35 lb JPN IVP":0.184,"X Region|Fresh - Trim A|35 lb JPN Bulk":0.183,"X Region|Frozen - Block|15 kg":0.1632,"X Region|Frozen - Block|66 LF":0.1267,"X Region|Frozen - HON|25 kg":0.1033,"X Region|Frozen - Trim D|10 kg":0.26,"X Region|Frozen - Trim D|15 kg":0.213,"X Region|Frozen - Trim D|10 kg - Catch Weight":0.26,"X Region|Frozen - Trim D|15 kg - Catch Weight":0.213,"X Region|Frozen - Trim D|10 kg con Film":0.27,"X Region|Frozen - Trim D|15 kg con Film":0.27,"X Region|Frozen - Trim E|10 kg":0.242,"X Region|Frozen - Trim E|15 kg":0.217,"X Region|Frozen - Trim E|10 kg - Catch Weight":0.242,"X Region|Frozen - Trim E|15 kg - Catch Weight":0.217,"X Region|Frozen - Trim E|10 kg con Film":0.242,"X Region|Frozen - Trim E|15 kg con Film":0.217,"X Region|Frozen - Trim IQF|15 kg":0.12,"XII Region|Fresh - HON|55 lb":0.2915,"XII Region|Fresh - HON Arka|55 lb":0.408,"XII Region|Fresh - HON Brasil|75 lb":0.2076,"XII Region|Fresh - HON China|25 kg":0.2915,"XII Region|Fresh - Trim|35 lb":0.22,"XII Region|Fresh - Trim|10 lb":0.41,"XII Region|Fresh - Trim|35 lb - Arka":0.28,"XII Region|Fresh - Trim|10 lb - Arka":0.51,"XII Region|Frozen - HON|25 kg":0.113,"XII Region|Frozen - Trim D|10 kg":0.263,"XII Region|Frozen - Trim D|15 kg":0.211,"XII Region|Frozen - Trim D|10 kg - Catch Weight":0.263,"XII Region|Frozen - Trim D|15 kg - Catch Weight":0.211,"XII Region|Frozen - Trim E|10 kg":0.263,"XII Region|Frozen - Trim E|15 kg":0.211,"XII Region|Frozen - Trim E|10 kg - Catch Weight":0.263,"XII Region|Frozen - Trim E|15 kg - Catch Weight":0.211,"XII Region|Frozen - Trim IQF|15 kg":0.11},"wh":{"Fresh|BOSTON INTERNATIONAL AIRPORT|Aéreo":{"name":"BOSTON INTERNATIONAL AIRPORT","cond":"Fresh","despacho":"Air","total":0.02},"Fresh|MIAMI INTERNATIONAL TRANSIT|Aéreo":{"name":"MIAMI INTERNATIONAL TRANSIT","cond":"Fresh","despacho":"Air","total":0.1},"Fresh|PRIME FRESH HANDLING_CA|Aéreo":{"name":"PRIME FRESH HANDLING_CA","cond":"Fresh","despacho":"Air","total":0.2},"Fresh|EVO LOGISTICS (CA)|Aéreo":{"name":"EVO LOGISTICS (CA)","cond":"Fresh","despacho":"Air","total":0.19},"Fresh|HOUSTON INTERNATIONAL AIRPORT|Aéreo":{"name":"HOUSTON INTERNATIONAL AIRPORT","cond":"Fresh","despacho":"Air","total":0.05},"Fresh|JFK INTERNATIONAL AIRPORT|Aéreo":{"name":"JFK INTERNATIONAL AIRPORT","cond":"Fresh","despacho":"Air","total":0.02},"Fresh|LOS ANGELES INTERN. AIRPORT|Aéreo":{"name":"LOS ANGELES INTERN. AIRPORT","cond":"Fresh","despacho":"Air","total":0.05},"Fresh|DALLAS INTERNATIONAL AIRPORT|Aéreo":{"name":"DALLAS INTERNATIONAL AIRPORT","cond":"Fresh","despacho":"Air","total":0.05},"Fresh|SEATTLE INTERNATIONAL AIRPORT|Aéreo":{"name":"SEATTLE INTERNATIONAL AIRPORT","cond":"Fresh","despacho":"Air","total":0.05},"Fresh|MIAMI INTERNATIONAL AIRPORT|Aéreo":{"name":"MIAMI INTERNATIONAL AIRPORT","cond":"Fresh","despacho":"Air","total":0.02},"Fresh|EVO LOGISTICS_TX|Aéreo":{"name":"EVO LOGISTICS_TX","cond":"Fresh","despacho":"Air","total":0.19},"Frozen|BOSTON INTERNATIONAL AIRPORT|Aéreo":{"name":"BOSTON INTERNATIONAL AIRPORT","cond":"Frozen","despacho":"Air","total":0.02},"Frozen|MIAMI INTERNATIONAL TRANSIT|Aéreo":{"name":"MIAMI INTERNATIONAL TRANSIT","cond":"Frozen","despacho":"Air","total":0.1},"Frozen|PRIME FRESH HANDLING_CA|Aéreo":{"name":"PRIME FRESH HANDLING_CA","cond":"Frozen","despacho":"Air","total":0.17},"Frozen|EVO LOGISTICS (CA)|Aéreo":{"name":"EVO LOGISTICS (CA)","cond":"Frozen","despacho":"Air","total":0.17},"Frozen|HOUSTON INTERNATIONAL AIRPORT|Aéreo":{"name":"HOUSTON INTERNATIONAL AIRPORT","cond":"Frozen","despacho":"Air","total":0.02},"Frozen|JFK INTERNATIONAL AIRPORT|Aéreo":{"name":"JFK INTERNATIONAL AIRPORT","cond":"Frozen","despacho":"Air","total":0.02},"Frozen|LOS ANGELES INTERN. AIRPORT|Aéreo":{"name":"LOS ANGELES INTERN. AIRPORT","cond":"Frozen","despacho":"Air","total":0.05},"Frozen|DALLAS INTERNATIONAL AIRPORT|Aéreo":{"name":"DALLAS INTERNATIONAL AIRPORT","cond":"Frozen","despacho":"Air","total":0.02},"Frozen|SEATTLE INTERNATIONAL AIRPORT|Aéreo":{"name":"SEATTLE INTERNATIONAL AIRPORT","cond":"Frozen","despacho":"Air","total":0.05},"Frozen|MIAMI INTERNATIONAL AIRPORT|Aéreo":{"name":"MIAMI INTERNATIONAL AIRPORT","cond":"Frozen","despacho":"Air","total":0.02},"Frozen|EVO LOGISTICS_TX|Aéreo":{"name":"EVO LOGISTICS_TX","cond":"Frozen","despacho":"Air","total":0.15},"Frozen|FREEZPAK LOGISTICS_IL|Marítimo":{"name":"FREEZPAK LOGISTICS_IL","cond":"Frozen","despacho":"Maritime","total":0.19},"Frozen|VERSACOLD LOGISTICS_LACHINE|Marítimo":{"name":"VERSACOLD LOGISTICS_LACHINE","cond":"Frozen","despacho":"Maritime","total":0.26},"Frozen|LINEAGE LOGISTICS_ELIZABETH_NJ|Marítimo":{"name":"LINEAGE LOGISTICS_ELIZABETH_NJ","cond":"Frozen","despacho":"Maritime","total":0.22},"Frozen|VERTICAL COLD STORAGE_FL|Marítimo":{"name":"VERTICAL COLD STORAGE_FL","cond":"Frozen","despacho":"Maritime","total":0.22},"Frozen|LINEAGE LOGISTICS PFS_HOUSTON|Marítimo":{"name":"LINEAGE LOGISTICS PFS_HOUSTON","cond":"Frozen","despacho":"Maritime","total":0.21},"Frozen|LINEAGE LOGISTICS PFS_ATLANTA|Marítimo":{"name":"LINEAGE LOGISTICS PFS_ATLANTA","cond":"Frozen","despacho":"Maritime","total":0.26},"Frozen|LINEAGE LOGISTICS PFS_VERNON|Marítimo":{"name":"LINEAGE LOGISTICS PFS_VERNON","cond":"Frozen","despacho":"Maritime","total":0.26},"Frozen|LINEAGE LOGISTICS PFS_CHICAGO|Marítimo":{"name":"LINEAGE LOGISTICS PFS_CHICAGO","cond":"Frozen","despacho":"Maritime","total":0.26},"Frozen|INTERSTATE WAREHOUSING_IN|Marítimo":{"name":"INTERSTATE WAREHOUSING_IN","cond":"Frozen","despacho":"Maritime","total":0.26},"Frozen|INTERSTATE WAREHOUSING_AZ|Marítimo":{"name":"INTERSTATE WAREHOUSING_AZ","cond":"Frozen","despacho":"Maritime","total":0.26},"Frozen|IGLOO EXCHANGE_MI|Marítimo":{"name":"IGLOO EXCHANGE_MI","cond":"Frozen","despacho":"Maritime","total":0.26},"Frozen|PORT OF HALIFAX|Marítimo":{"name":"PORT OF HALIFAX","cond":"Frozen","despacho":"Maritime","total":0.1},"Frozen|PORT OF NEW YORK|Marítimo":{"name":"PORT OF NEW YORK","cond":"Frozen","despacho":"Maritime","total":0.1},"Frozen|PORT OF SAN JUAN_PR|Marítimo":{"name":"PORT OF SAN JUAN_PR","cond":"Frozen","despacho":"Maritime","total":0.1},"Frozen|PORT OF SEATTLE_WA|Marítimo":{"name":"PORT OF SEATTLE_WA","cond":"Frozen","despacho":"Maritime","total":0.1},"Frozen|LINEAGE LOGISTICS PFS_MIAMI 3|Marítimo":{"name":"LINEAGE LOGISTICS PFS_MIAMI 3","cond":"Frozen","despacho":"Maritime","total":0.22},"Frozen|LINEAGE LOGISTICS_JACKSONV_FL|Marítimo":{"name":"LINEAGE LOGISTICS_JACKSONV_FL","cond":"Frozen","despacho":"Maritime","total":0.26},"Frozen|LINEAGE LOGISTICS MTC_JESSUP|Marítimo":{"name":"LINEAGE LOGISTICS MTC_JESSUP","cond":"Frozen","despacho":"Maritime","total":0.26},"Frozen|LINEAGE LOGISTICS PFS_MIAMI 4|Marítimo":{"name":"LINEAGE LOGISTICS PFS_MIAMI 4","cond":"Frozen","despacho":"Maritime","total":0.22},"Frozen|PORT EVERGLADES_FL|Marítimo":{"name":"PORT EVERGLADES_FL","cond":"Frozen","despacho":"Maritime","total":0.1},"Frozen|PORT OF LONG BEACH_CA|Marítimo":{"name":"PORT OF LONG BEACH_CA","cond":"Frozen","despacho":"Maritime","total":0.1},"Frozen|LINEAGE LOGISTICS PFS_WOODLAND|Marítimo":{"name":"LINEAGE LOGISTICS PFS_WOODLAND","cond":"Frozen","despacho":"Maritime","total":0.26},"Frozen|LINEAGE LOGISTICS PFS_MEDLEY|Marítimo":{"name":"LINEAGE LOGISTICS PFS_MEDLEY","cond":"Frozen","despacho":"Maritime","total":0.26},"Frozen|PORT OF BOSTON_MA|Marítimo":{"name":"PORT OF BOSTON_MA","cond":"Frozen","despacho":"Maritime","total":0.1},"Frozen|PORT OF BALTIMORE_MD|Marítimo":{"name":"PORT OF BALTIMORE_MD","cond":"Frozen","despacho":"Maritime","total":0.1}},"taras":{"Fresh|10 lb":1.1387,"Fresh|15 lb":1.1084,"Fresh|35 lb":1.0853,"Fresh|35 lb JPN IVP":1.135,"Fresh|35 lb JPN Bulk":1.095,"Fresh|35is":1.223,"Fresh|25 kg 5-6kg":1.2,"Fresh|25 kg 5-6 kg":1.2,"Fresh|25 kg 6+ kg":1.26,"Fresh|25 kg 6+  kg":1.26,"Fresh|55 lb":1.213,"Fresh|75 lb":1.18,"Frozen|10 kg":1.0,"Frozen|15 kg":1.0},"tde_base":{"X Region":{"yield_":0.6051,"gfob":1.143317629923429,"freight":1.5953909999999998,"wh":0.1,"comm_rate":0.02,"tariff_pct":0.1},"XII Region":{"yield_":0.594,"gfob":1.9747999999999999,"freight":1.4977139999999998,"wh":0.1,"comm_rate":0.02,"tariff_pct":0.1}},"portions":{"X Region|Fresh|Costco MX - 6,35 Oz Skin On (Demi cen)|Premium":{"region":"X Region","cond":"Fresh","porcion":"Costco MX - 6,35 Oz Skin On (Demi cen)","calibre":"Objetivo","mmpp":"Premium","fampack":"Costco MX","yield_":0.51608235,"cv":0.762518,"cf":0.21,"ce":0.272499,"frig":0.03,"exp":0.081481,"pct_obj":0.4822,"pct_noobj":0,"rmp_noobj":0,"pct_noobj2":0,"rmp_noobj2":0,"pct_cola":0.031,"rmp_cola":3.605263,"pct_trozo":0.0172,"rmp_trozo":3.57,"pct_belly":0.0179,"rmp_belly":3.8},"X Region|Fresh|Red  Lobster Skin on Scale off|Premium":{"region":"X Region","cond":"Fresh","porcion":"Red  Lobster Skin on Scale off","calibre":"Objetivo","mmpp":"Premium","fampack":"RL","yield_":0.51192916,"cv":0.772859,"cf":0.21,"ce":0.227748,"frig":0.03,"exp":0.081481,"pct_obj":0.491929,"pct_noobj":0.02,"rmp_noobj":4.359211,"pct_noobj2":0,"rmp_noobj2":0,"pct_cola":0,"rmp_cola":0,"pct_trozo":0.005,"rmp_trozo":3.57,"pct_belly":0,"rmp_belly":0},"X Region|Fresh|Skin off 5-8 oz|Premium":{"region":"X Region","cond":"Fresh","porcion":"Skin off 5-8 oz","calibre":"Objetivo","mmpp":"Premium","fampack":"Generica","yield_":0.428,"cv":0.93,"cf":0.21,"ce":0.23,"frig":0.03,"exp":0.081481,"pct_obj":0.409,"pct_noobj":0.019,"rmp_noobj":3.91164,"pct_noobj2":0,"rmp_noobj2":0,"pct_cola":0,"rmp_cola":0,"pct_trozo":0.016,"rmp_trozo":7.07,"pct_belly":0,"rmp_belly":0},"X Region|Fresh|Skin on 5-8 oz|Premium":{"region":"X Region","cond":"Fresh","porcion":"Skin on 5-8 oz","calibre":"Objetivo","mmpp":"Premium","fampack":"Generica","yield_":0.523,"cv":0.762518,"cf":0.21,"ce":0.272499,"frig":0.03,"exp":0.081481,"pct_obj":0.5,"pct_noobj":0.023,"rmp_noobj":4.458023,"pct_noobj2":0,"rmp_noobj2":0,"pct_cola":0,"rmp_cola":-0.21,"pct_trozo":0.015,"rmp_trozo":3.57,"pct_belly":0,"rmp_belly":0},"X Region|Fresh|Skin off 5-8 oz Center Cut|Premium":{"region":"X Region","cond":"Fresh","porcion":"Skin off 5-8 oz Center Cut","calibre":"Objetivo","mmpp":"Premium","fampack":"Generica","yield_":0.408,"cv":0.93,"cf":0.21,"ce":0.23,"frig":0.03,"exp":0.081481,"pct_obj":0.367,"pct_noobj":0.013,"rmp_noobj":3.71904,"pct_noobj2":0,"rmp_noobj2":0,"pct_cola":0.028,"rmp_cola":3.080776,"pct_trozo":0.016,"rmp_trozo":7.07,"pct_belly":0,"rmp_belly":0},"X Region|Fresh|Skin on 5-8 oz Center Cut|Premium":{"region":"X Region","cond":"Fresh","porcion":"Skin on 5-8 oz Center Cut","calibre":"Objetivo","mmpp":"Premium","fampack":"Generica","yield_":0.503,"cv":0.762518,"cf":0.21,"ce":0.272499,"frig":0.03,"exp":0.081481,"pct_obj":0.462,"pct_noobj":0.013,"rmp_noobj":4.279514,"pct_noobj2":0,"rmp_noobj2":0,"pct_cola":0.028,"rmp_cola":3.529434,"pct_trozo":0.015,"rmp_trozo":3.57,"pct_belly":0,"rmp_belly":0},"X Region|Frozen|Walmart - Marketside 2 Lbs|Premium":{"region":"X Region","cond":"Frozen","porcion":"Walmart - Marketside 2 Lbs","calibre":"Objetivo","mmpp":"Premium","fampack":"Walmart 2 Lbs","yield_":0.4324,"cv":1,"cf":0.21,"ce":0.39,"frig":0.1325,"exp":0.083333,"pct_obj":0.3939,"pct_noobj":0.0235,"rmp_noobj":3.954012,"pct_noobj2":0,"rmp_noobj2":0,"pct_cola":0.015,"rmp_cola":3.277577,"pct_trozo":0.005,"rmp_trozo":7.07,"pct_belly":0,"rmp_belly":0},"X Region|Frozen|Walmart - Marketside 2 Lbs|Industrial":{"region":"X Region","cond":"Frozen","porcion":"Walmart - Marketside 2 Lbs","calibre":"Objetivo","mmpp":"Industrial","fampack":"Walmart 2 Lbs","yield_":0.4124,"cv":1.1,"cf":0.21,"ce":0.39,"frig":0.1325,"exp":0.083333,"pct_obj":0.3739,"pct_noobj":0.0235,"rmp_noobj":3.761412,"pct_noobj2":0,"rmp_noobj2":0,"pct_cola":0.015,"rmp_cola":3.116265,"pct_trozo":0.015,"rmp_trozo":7.07,"pct_belly":0,"rmp_belly":0},"X Region|Frozen|Walmart - Marketside 1 Lbs|Premium":{"region":"X Region","cond":"Frozen","porcion":"Walmart - Marketside 1 Lbs","calibre":"Objetivo","mmpp":"Premium","fampack":"Walmart 1 Lbs","yield_":0.4324,"cv":0.997354,"cf":0.21,"ce":0.575237,"frig":0.1325,"exp":0.083333,"pct_obj":0.3939,"pct_noobj":0.0235,"rmp_noobj":3.954012,"pct_noobj2":0,"rmp_noobj2":0,"pct_cola":0.015,"rmp_cola":3.277577,"pct_trozo":0.005,"rmp_trozo":7.07,"pct_belly":0,"rmp_belly":0},"X Region|Frozen|Walmart - Marketside 1 Lbs|Industrial":{"region":"X Region","cond":"Frozen","porcion":"Walmart - Marketside 1 Lbs","calibre":"Objetivo","mmpp":"Industrial","fampack":"Walmart 1 Lbs","yield_":0.4124,"cv":0.997354,"cf":0.21,"ce":0.575237,"frig":0.1325,"exp":0.083333,"pct_obj":0.3739,"pct_noobj":0.0235,"rmp_noobj":3.761412,"pct_noobj2":0,"rmp_noobj2":0,"pct_cola":0.015,"rmp_cola":3.116265,"pct_trozo":0.015,"rmp_trozo":7.07,"pct_belly":0,"rmp_belly":0},"X Region|Frozen|Generic Portion Skinless 4 Oz|Premium":{"region":"X Region","cond":"Frozen","porcion":"Generic Portion Skinless 4 Oz","calibre":"Objetivo","mmpp":"Premium","fampack":"Generica","yield_":0.428,"cv":0.9,"cf":0.21,"ce":0.35,"frig":0.1325,"exp":0.083333,"pct_obj":0.403,"pct_noobj":0.01,"rmp_noobj":2.508276,"pct_noobj2":0,"rmp_noobj2":0,"pct_cola":0.015,"rmp_cola":3.242089,"pct_trozo":0.005,"rmp_trozo":7.07,"pct_belly":0,"rmp_belly":0},"X Region|Frozen|Generic Portion Skinless 4 Oz|Industrial":{"region":"X Region","cond":"Frozen","porcion":"Generic Portion Skinless 4 Oz","calibre":"Objetivo","mmpp":"Industrial","fampack":"Generica","yield_":0.408,"cv":1,"cf":0.21,"ce":0.35,"frig":0.16,"exp":0.083333,"pct_obj":0.383,"pct_noobj":0.01,"rmp_noobj":2.381253,"pct_noobj2":0,"rmp_noobj2":0,"pct_cola":0.015,"rmp_cola":3.080776,"pct_trozo":0.025,"rmp_trozo":7.07,"pct_belly":0,"rmp_belly":0},"X Region|Frozen|Generic Portion Skinless 6/8 Oz|Premium":{"region":"X Region","cond":"Frozen","porcion":"Generic Portion Skinless 6/8 Oz","calibre":"Objetivo","mmpp":"Premium","fampack":"Generica","yield_":0.428,"cv":0.9,"cf":0.21,"ce":0.31,"frig":0.13,"exp":0.083333,"pct_obj":0.403,"pct_noobj":0.01,"rmp_noobj":2.508276,"pct_noobj2":0,"rmp_noobj2":0,"pct_cola":0.015,"rmp_cola":3.242089,"pct_trozo":0.005,"rmp_trozo":7.07,"pct_belly":0,"rmp_belly":0},"X Region|Frozen|Generic Portion Skinless 6/8 Oz|Industrial":{"region":"X Region","cond":"Frozen","porcion":"Generic Portion Skinless 6/8 Oz","calibre":"Objetivo","mmpp":"Industrial","fampack":"Generica","yield_":0.408,"cv":1,"cf":0.21,"ce":0.31,"frig":0.13,"exp":0.083333,"pct_obj":0.383,"pct_noobj":0.01,"rmp_noobj":2.381253,"pct_noobj2":0,"rmp_noobj2":0,"pct_cola":0.015,"rmp_cola":3.080776,"pct_trozo":0.025,"rmp_trozo":7.07,"pct_belly":0,"rmp_belly":0},"X Region|Frozen|Sams - Members Mark 6 Oz|Premium":{"region":"X Region","cond":"Frozen","porcion":"Sams - Members Mark 6 Oz","calibre":"Objetivo","mmpp":"Premium","fampack":"Members Mark","yield_":0.427,"cv":0.95542,"cf":0.21,"ce":0.48,"frig":0.16,"exp":0.083333,"pct_obj":0.389,"pct_noobj":0.01,"rmp_noobj":3.90201,"pct_noobj2":0,"rmp_noobj2":0,"pct_cola":0.028,"rmp_cola":3.234023,"pct_trozo":0.0197,"rmp_trozo":7.07,"pct_belly":0,"rmp_belly":0},"X Region|Frozen|Sams - Members Mark 6 Oz|Industrial":{"region":"X Region","cond":"Frozen","porcion":"Sams - Members Mark 6 Oz","calibre":"Objetivo","mmpp":"Industrial","fampack":"Members Mark","yield_":0.407,"cv":0.95542,"cf":0.21,"ce":0.48,"frig":0.16,"exp":0.083333,"pct_obj":0.369,"pct_noobj":0.01,"rmp_noobj":3.70941,"pct_noobj2":0,"rmp_noobj2":0,"pct_cola":0.028,"rmp_cola":3.07271,"pct_trozo":0.0397,"rmp_trozo":7.07,"pct_belly":0,"rmp_belly":0},"X Region|Frozen|Kirkland Convencional 6-8 Oz|Premium":{"region":"X Region","cond":"Frozen","porcion":"Kirkland Convencional 6-8 Oz","calibre":"Objetivo","mmpp":"Premium","fampack":"Kirkland","yield_":0.421,"cv":1.15,"cf":0.21,"ce":0.38,"frig":0.1325,"exp":0.083333,"pct_obj":0.383,"pct_noobj":0.023,"rmp_noobj":3.84423,"pct_noobj2":0,"rmp_noobj2":0,"pct_cola":0.015,"rmp_cola":3.185629,"pct_trozo":0.05,"rmp_trozo":7.07,"pct_belly":0,"rmp_belly":0},"X Region|Frozen|Kirkland Convencional 6-8 Oz|Industrial":{"region":"X Region","cond":"Frozen","porcion":"Kirkland Convencional 6-8 Oz","calibre":"Objetivo","mmpp":"Industrial","fampack":"Kirkland","yield_":0.401,"cv":1.25,"cf":0.21,"ce":0.38,"frig":0.1325,"exp":0.083333,"pct_obj":0.363,"pct_noobj":0.023,"rmp_noobj":3.65163,"pct_noobj2":0,"rmp_noobj2":0,"pct_cola":0.015,"rmp_cola":3.024317,"pct_trozo":0.05,"rmp_trozo":7.07,"pct_belly":0,"rmp_belly":0},"X Region|Frozen|Walmart -1 Lbs Seasoned|Premium":{"region":"X Region","cond":"Frozen","porcion":"Walmart -1 Lbs Seasoned","calibre":"Objetivo","mmpp":"Premium","fampack":"Walmart 1 Lbs","yield_":0.43242,"cv":1.1,"cf":0.21,"ce":1.05,"frig":0.16,"exp":0.083333,"pct_obj":0.40492,"pct_noobj":0.01,"rmp_noobj":3.954205,"pct_noobj2":0,"rmp_noobj2":0,"pct_cola":0.0175,"rmp_cola":3.277739,"pct_trozo":0.0197,"rmp_trozo":7.07,"pct_belly":0,"rmp_belly":0},"X Region|Frozen|Walmart -1 Lbs Seasoned|Industrial":{"region":"X Region","cond":"Frozen","porcion":"Walmart -1 Lbs Seasoned","calibre":"Objetivo","mmpp":"Industrial","fampack":"Walmart 1 Lbs","yield_":0.41242,"cv":1.2,"cf":0.21,"ce":1.05,"frig":0.16,"exp":0.083333,"pct_obj":0.38492,"pct_noobj":0.01,"rmp_noobj":3.761605,"pct_noobj2":0,"rmp_noobj2":0,"pct_cola":0.0175,"rmp_cola":3.116426,"pct_trozo":0.0397,"rmp_trozo":7.07,"pct_belly":0,"rmp_belly":0},"X Region|Frozen|Walmart -Seasoned Skinless Multipack|Premium":{"region":"X Region","cond":"Frozen","porcion":"Walmart -Seasoned Skinless Multipack","calibre":"Objetivo","mmpp":"Premium","fampack":"Walmart 1 Lbs","yield_":0.43242,"cv":1.1,"cf":0.21,"ce":1.05,"frig":0.16,"exp":0.083333,"pct_obj":0.40492,"pct_noobj":0.01,"rmp_noobj":3.954205,"pct_noobj2":0,"rmp_noobj2":0,"pct_cola":0.0175,"rmp_cola":3.277739,"pct_trozo":0.0197,"rmp_trozo":7.07,"pct_belly":0,"rmp_belly":0},"X Region|Frozen|Walmart -Seasoned Skinless Multipack|Industrial":{"region":"X Region","cond":"Frozen","porcion":"Walmart -Seasoned Skinless Multipack","calibre":"Objetivo","mmpp":"Industrial","fampack":"Walmart 1 Lbs","yield_":0.41242,"cv":1.2,"cf":0.21,"ce":1.05,"frig":0.16,"exp":0.083333,"pct_obj":0.38492,"pct_noobj":0.01,"rmp_noobj":3.761605,"pct_noobj2":0,"rmp_noobj2":0,"pct_cola":0.0175,"rmp_cola":3.116426,"pct_trozo":0.0397,"rmp_trozo":7.07,"pct_belly":0,"rmp_belly":0},"X Region|Frozen|Highliner 6-8 Oz Skinless|Premium":{"region":"X Region","cond":"Frozen","porcion":"Highliner 6-8 Oz Skinless","calibre":"Objetivo","mmpp":"Premium","fampack":"Highliner","yield_":0.428,"cv":1.1,"cf":0.21,"ce":0.31,"frig":0.16,"exp":0.083333,"pct_obj":0.403,"pct_noobj":0.01,"rmp_noobj":3.91164,"pct_noobj2":0,"rmp_noobj2":0,"pct_cola":0.015,"rmp_cola":3.242089,"pct_trozo":0.005,"rmp_trozo":7.07,"pct_belly":0,"rmp_belly":0},"X Region|Frozen|Highliner 6-8 Oz Skinless|Industrial":{"region":"X Region","cond":"Frozen","porcion":"Highliner 6-8 Oz Skinless","calibre":"Objetivo","mmpp":"Industrial","fampack":"Highliner","yield_":0.408,"cv":1.2,"cf":0.21,"ce":0.31,"frig":0.16,"exp":0.083333,"pct_obj":0.383,"pct_noobj":0.01,"rmp_noobj":3.71904,"pct_noobj2":0,"rmp_noobj2":0,"pct_cola":0.015,"rmp_cola":3.080776,"pct_trozo":0.025,"rmp_trozo":7.07,"pct_belly":0,"rmp_belly":0},"X Region|Frozen|KB Seafood 200 Grs Skinless|Premium":{"region":"X Region","cond":"Frozen","porcion":"KB Seafood 200 Grs Skinless","calibre":"Objetivo","mmpp":"Premium","fampack":"KB","yield_":0.428,"cv":1.1,"cf":0.21,"ce":0.396221,"frig":0.16,"exp":0.083333,"pct_obj":0.403,"pct_noobj":0.01,"rmp_noobj":3.91164,"pct_noobj2":0,"rmp_noobj2":0,"pct_cola":0.015,"rmp_cola":3.242089,"pct_trozo":0.005,"rmp_trozo":7.07,"pct_belly":0,"rmp_belly":0},"X Region|Frozen|KB Seafood 200 Grs Skinless|Industrial":{"region":"X Region","cond":"Frozen","porcion":"KB Seafood 200 Grs Skinless","calibre":"Objetivo","mmpp":"Industrial","fampack":"KB","yield_":0.408,"cv":1.2,"cf":0.21,"ce":0.396221,"frig":0.16,"exp":0.083333,"pct_obj":0.383,"pct_noobj":0.01,"rmp_noobj":3.71904,"pct_noobj2":0,"rmp_noobj2":0,"pct_cola":0.015,"rmp_cola":3.080776,"pct_trozo":0.025,"rmp_trozo":7.07,"pct_belly":0,"rmp_belly":0},"X Region|Frozen|Generic Portions - Skin On 4 oz|Premium":{"region":"X Region","cond":"Frozen","porcion":"Generic Portions - Skin On 4 oz","calibre":"Objetivo","mmpp":"Premium","fampack":"Generica","yield_":0.51,"cv":0.9,"cf":0.21,"ce":0.3,"frig":0.13,"exp":0.083333,"pct_obj":0.49,"pct_noobj":0.01,"rmp_noobj":2.433553,"pct_noobj2":0,"rmp_noobj2":0,"pct_cola":0.01,"rmp_cola":3.581474,"pct_trozo":0.015,"rmp_trozo":3.57,"pct_belly":0,"rmp_belly":0},"X Region|Frozen|L45 - 4 Oz - Skin On|Premium":{"region":"X Region","cond":"Frozen","porcion":"L45 - 4 Oz - Skin On","calibre":"Objetivo","mmpp":"Premium","fampack":"L45","yield_":0.512,"cv":0.9,"cf":0.21,"ce":0.576703,"frig":0.16,"exp":0.083333,"pct_obj":0.464,"pct_noobj":0.028,"rmp_noobj":2.44392,"pct_noobj2":0,"rmp_noobj2":0,"pct_cola":0.02,"rmp_cola":3.596342,"pct_trozo":0.01,"rmp_trozo":3.57,"pct_belly":0,"rmp_belly":0},"X Region|Frozen|L45 - 4 Oz - Skin On|Industrial":{"region":"X Region","cond":"Frozen","porcion":"L45 - 4 Oz - Skin On","calibre":"Objetivo","mmpp":"Industrial","fampack":"L45","yield_":0.49,"cv":0.9,"cf":0.21,"ce":0.52,"frig":0.16,"exp":0.083333,"pct_obj":0.45,"pct_noobj":0.02,"rmp_noobj":2.329885,"pct_noobj2":0,"rmp_noobj2":0,"pct_cola":0.02,"rmp_cola":3.432788,"pct_trozo":0.032,"rmp_trozo":3.57,"pct_belly":0,"rmp_belly":0},"X Region|Frozen|L45 - 6 oz - Skinless Injected|Premium":{"region":"X Region","cond":"Frozen","porcion":"L45 - 6 oz - Skinless Injected","calibre":"Objetivo","mmpp":"Premium","fampack":"L45","yield_":0.418,"cv":0.95,"cf":0.21,"ce":0.362396,"frig":0.16,"exp":0.083333,"pct_obj":0.3975,"pct_noobj":0.01,"rmp_noobj":2.444765,"pct_noobj2":0,"rmp_noobj2":0,"pct_cola":0.0105,"rmp_cola":3.161432,"pct_trozo":0.015,"rmp_trozo":7.07,"pct_belly":0,"rmp_belly":0},"X Region|Frozen|L45 - 6 oz - Skinless Injected|Industrial":{"region":"X Region","cond":"Frozen","porcion":"L45 - 6 oz - Skinless Injected","calibre":"Objetivo","mmpp":"Industrial","fampack":"L45","yield_":0.418,"cv":0.95,"cf":0.21,"ce":0.362396,"frig":0.16,"exp":0.083333,"pct_obj":0.3795,"pct_noobj":0.028,"rmp_noobj":2.444765,"pct_noobj2":0,"rmp_noobj2":0,"pct_cola":0.0105,"rmp_cola":3.161432,"pct_trozo":0.037,"rmp_trozo":7.07,"pct_belly":0,"rmp_belly":0},"X Region|Frozen|L45 - 5,5 oz Skinless Seasoned|Premium":{"region":"X Region","cond":"Frozen","porcion":"L45 - 5,5 oz Skinless Seasoned","calibre":"Objetivo","mmpp":"Premium","fampack":"L45","yield_":0.43242,"cv":1.1,"cf":0.21,"ce":1.05,"frig":0.16,"exp":0.083333,"pct_obj":0.40492,"pct_noobj":0.0175,"rmp_noobj":3.954205,"pct_noobj2":0,"rmp_noobj2":0,"pct_cola":0.01,"rmp_cola":0,"pct_trozo":0.0197,"rmp_trozo":7.07,"pct_belly":0,"rmp_belly":0},"X Region|Frozen|L45 - 5,5 oz Skinless Seasoned|Industrial":{"region":"X Region","cond":"Frozen","porcion":"L45 - 5,5 oz Skinless Seasoned","calibre":"Objetivo","mmpp":"Industrial","fampack":"L45","yield_":0.41242,"cv":1.1,"cf":0.21,"ce":1.05,"frig":0.16,"exp":0.083333,"pct_obj":0.38492,"pct_noobj":0.0175,"rmp_noobj":3.761605,"pct_noobj2":0,"rmp_noobj2":0,"pct_cola":0.01,"rmp_cola":0,"pct_trozo":0.0397,"rmp_trozo":7.07,"pct_belly":0,"rmp_belly":0},"X Region|Frozen|Bama 2x5 2x4,5 Twin Pack 10k Film|Premium":{"region":"X Region","cond":"Frozen","porcion":"Bama 2x5 2x4,5 Twin Pack 10k Film","calibre":"Objetivo","mmpp":"Premium","fampack":"Bama","yield_":0.51,"cv":0.667995,"cf":0.21,"ce":0.396463,"frig":0.16,"exp":0.083333,"pct_obj":0.49,"pct_noobj":0.01,"rmp_noobj":4.341992,"pct_noobj2":0,"rmp_noobj2":0,"pct_cola":0.01,"rmp_cola":3.581474,"pct_trozo":0.015,"rmp_trozo":3.57,"pct_belly":0,"rmp_belly":0},"X Region|Frozen|Bama 2x5 2x4,5 Twin Pack 10k Film|Industrial":{"region":"X Region","cond":"Frozen","porcion":"Bama 2x5 2x4,5 Twin Pack 10k Film","calibre":"Objetivo","mmpp":"Industrial","fampack":"Bama","yield_":0.49,"cv":0.77,"cf":0.21,"ce":0.396463,"frig":0.16,"exp":0.083333,"pct_obj":0.47,"pct_noobj":0.01,"rmp_noobj":4.163483,"pct_noobj2":0,"rmp_noobj2":0,"pct_cola":0.01,"rmp_cola":3.432788,"pct_trozo":0.013,"rmp_trozo":3.57,"pct_belly":0,"rmp_belly":0},"X Region|Frozen|Skin Off Shallow Skinned Injected|Premium":{"region":"X Region","cond":"Frozen","porcion":"Skin Off Shallow Skinned Injected","calibre":"Objetivo","mmpp":"Premium","fampack":"High Lliner","yield_":0.485,"cv":0.994684,"cf":0.21,"ce":0.4,"frig":0.16,"exp":0.083333,"pct_obj":0.4589,"pct_noobj":0.0199,"rmp_noobj":4.46055,"pct_noobj2":0,"rmp_noobj2":0,"pct_cola":0.0062,"rmp_cola":3.701829,"pct_trozo":0.0263,"rmp_trozo":7.07,"pct_belly":0,"rmp_belly":0},"X Region|Frozen|Skin Off Shallow Skinned Injected|Industrial":{"region":"X Region","cond":"Frozen","porcion":"Skin Off Shallow Skinned Injected","calibre":"Objetivo","mmpp":"Industrial","fampack":"High Lliner","yield_":0.475,"cv":0.994684,"cf":0.21,"ce":0.4,"frig":0.16,"exp":0.083333,"pct_obj":0.45,"pct_noobj":0.015,"rmp_noobj":4.36425,"pct_noobj2":0,"rmp_noobj2":0,"pct_cola":0.01,"rmp_cola":3.621173,"pct_trozo":0.035,"rmp_trozo":7.07,"pct_belly":0,"rmp_belly":0},"X Region|Frozen|Skin On Multipack Injected |Premium":{"region":"X Region","cond":"Frozen","porcion":"Skin On Multipack Injected ","calibre":"Objetivo","mmpp":"Premium","fampack":"BBI","yield_":0.544,"cv":0.928772,"cf":0.21,"ce":0.23,"frig":0.16,"exp":0.083333,"pct_obj":0.508,"pct_noobj":0.016,"rmp_noobj":4.645458,"pct_noobj2":0,"rmp_noobj2":0,"pct_cola":0.02,"rmp_cola":3.834238,"pct_trozo":0.005,"rmp_trozo":3.57,"pct_belly":0,"rmp_belly":0},"X Region|Frozen|Walmart - Marketside 1 Lbs|MIX":{"region":"X Region","cond":"Frozen","porcion":"Walmart - Marketside 1 Lbs","calibre":"10-12 lbs","mmpp":"MIX","fampack":"Walmart 1 Lbs","yield_":0.41,"cv":0.997354,"cf":0.21,"ce":0.575237,"frig":0.1325,"exp":0.083333,"pct_obj":0.3695,"pct_noobj":0.023,"rmp_noobj":3.7383,"pct_noobj2":0,"rmp_noobj2":0,"pct_cola":0.0175,"rmp_cola":3.096907,"pct_trozo":0.0197,"rmp_trozo":7.07,"pct_belly":0,"rmp_belly":0},"X Region|Frozen|Generic Portions - Skin On  6-8 oz|Premium":{"region":"X Region","cond":"Frozen","porcion":"Generic Portions - Skin On  6-8 oz","calibre":"Objetivo","mmpp":"Premium","fampack":"Generica","yield_":0.51,"cv":0.9,"cf":0.21,"ce":0.3,"frig":0.13,"exp":0.083333,"pct_obj":0.49,"pct_noobj":0.01,"rmp_noobj":4.341992,"pct_noobj2":0,"rmp_noobj2":0,"pct_cola":0.01,"rmp_cola":3.581474,"pct_trozo":0.015,"rmp_trozo":3.57,"pct_belly":0,"rmp_belly":0},"X Region|Frozen|Generic Cube 1,5x1,5 Deep Skinned|IC":{"region":"X Region","cond":"Frozen","porcion":"Generic Cube 1,5x1,5 Deep Skinned","calibre":"Objetivo","mmpp":"IC","fampack":"Generica","yield_":0.3827,"cv":1.8,"cf":0.548733,"ce":0.3,"frig":0.13,"exp":0.083333,"pct_obj":0.3827,"pct_noobj":0,"rmp_noobj":3.475401,"pct_noobj2":0,"rmp_noobj2":0,"pct_cola":0,"rmp_cola":2.876716,"pct_trozo":0,"rmp_trozo":7.07,"pct_belly":0,"rmp_belly":0},"X Region|Frozen|Generic Cube 1,5x1,5 Full Fat Off|IC":{"region":"X Region","cond":"Frozen","porcion":"Generic Cube 1,5x1,5 Full Fat Off","calibre":"Objetivo","mmpp":"IC","fampack":"Generica","yield_":0.3649,"cv":1.8,"cf":0.5755,"ce":0.3,"frig":0.13,"exp":0.083333,"pct_obj":0.3649,"pct_noobj":0,"rmp_noobj":3.303987,"pct_noobj2":0,"rmp_noobj2":0,"pct_cola":0,"rmp_cola":2.733148,"pct_trozo":0,"rmp_trozo":7.07,"pct_belly":0,"rmp_belly":0},"X Region|Frozen|Generic Cube 3,0x3,0 Deep Skinned|IC":{"region":"X Region","cond":"Frozen","porcion":"Generic Cube 3,0x3,0 Deep Skinned","calibre":"Objetivo","mmpp":"IC","fampack":"Generica","yield_":0.3999,"cv":1.8,"cf":0.525131,"ce":0.3,"frig":0.13,"exp":0.083333,"pct_obj":0.3999,"pct_noobj":0,"rmp_noobj":3.641037,"pct_noobj2":0,"rmp_noobj2":0,"pct_cola":0,"rmp_cola":3.015444,"pct_trozo":0,"rmp_trozo":7.07,"pct_belly":0,"rmp_belly":0},"X Region|Frozen|Generic Cube 3,0x3,0 Full Fat Off|IC":{"region":"X Region","cond":"Frozen","porcion":"Generic Cube 3,0x3,0 Full Fat Off","calibre":"Objetivo","mmpp":"IC","fampack":"Generica","yield_":0.3813,"cv":1.8,"cf":0.550747,"ce":0.3,"frig":0.13,"exp":0.083333,"pct_obj":0.3813,"pct_noobj":0,"rmp_noobj":3.461919,"pct_noobj2":0,"rmp_noobj2":0,"pct_cola":0,"rmp_cola":2.865424,"pct_trozo":0,"rmp_trozo":7.07,"pct_belly":0,"rmp_belly":0},"X Region|Frozen|Skin on Scale Off 7 oz - 1 kg bag Sam's China|Premium":{"region":"X Region","cond":"Frozen","porcion":"Skin on Scale Off 7 oz - 1 kg bag Sam's China","calibre":"Objetivo","mmpp":"Premium","fampack":"1 kg","yield_":0.5,"cv":0.8,"cf":0.21,"ce":0.576703,"frig":0.16,"exp":0.083333,"pct_obj":0.452,"pct_noobj":0.028,"rmp_noobj":2.381719,"pct_noobj2":0,"rmp_noobj2":0,"pct_cola":0.02,"rmp_cola":3.507131,"pct_trozo":0.01,"rmp_trozo":3.57,"pct_belly":0,"rmp_belly":0},"X Region|Fresh|Skin off  140 oz +/- 0,25 oz Center Cut|Premium":{"region":"X Region","cond":"Fresh","porcion":"Skin off  140 oz +/- 0,25 oz Center Cut","calibre":"Objetivo","mmpp":"Premium","fampack":"Sea Corp Center","yield_":0.4,"cv":0.93,"cf":0.21,"ce":0.25,"frig":0.03,"exp":0.081481,"pct_obj":0.359,"pct_noobj":0.013,"rmp_noobj":3.642,"pct_noobj2":0,"rmp_noobj2":0,"pct_cola":0.028,"rmp_cola":3.016251,"pct_trozo":0.026,"rmp_trozo":7.07,"pct_belly":0,"rmp_belly":0},"XII Region|Frozen|4-6 oz skin off deep - Sierra  10k ABF|Premium":{"region":"XII Region","cond":"Frozen","porcion":"4-6 oz skin off deep - Sierra  10k ABF","calibre":"Objetivo","mmpp":"Premium","fampack":"Sierra","yield_":0.405,"cv":2.7,"cf":0,"ce":0.7,"frig":0.16,"exp":0.2,"pct_obj":0.377,"pct_noobj":0,"rmp_noobj":3.69015,"pct_noobj2":0,"rmp_noobj2":0,"pct_cola":0.028,"rmp_cola":3.056579,"pct_trozo":0.026,"rmp_trozo":7.07,"pct_belly":0,"rmp_belly":0},"XII Region|Frozen|Skin On PortionAyA reproceso X Region 10k|Premium":{"region":"XII Region","cond":"Frozen","porcion":"Skin On PortionAyA reproceso X Region 10k","calibre":"Objetivo","mmpp":"Premium","fampack":"10k","yield_":0.408,"cv":2.4,"cf":0,"ce":0.4,"frig":0.16,"exp":0.2,"pct_obj":0.383,"pct_noobj":0.01,"rmp_noobj":2.381253,"pct_noobj2":0,"rmp_noobj2":0,"pct_cola":0.015,"rmp_cola":3.080776,"pct_trozo":0.005,"rmp_trozo":7.07,"pct_belly":0,"rmp_belly":0},"X Region|Frozen|Wild Fork Steaks (Center)|Premium":{"region":"X Region","cond":"Frozen","porcion":"Wild Fork Steaks (Center)","calibre":"Objetivo","mmpp":"Premium","fampack":"Wild Fork","yield_":0.57,"cv":1.2,"cf":0.368421,"ce":0.7,"frig":0.16,"exp":0.083333,"pct_obj":0.57,"pct_noobj":0,"rmp_noobj":5.2791,"pct_noobj2":0,"rmp_noobj2":0,"pct_cola":0,"rmp_cola":4.387408,"pct_trozo":0.04,"rmp_trozo":7.07,"pct_belly":0,"rmp_belly":0},"X Region|Frozen|Wild Fork Steaks (1 Steak post Poro)|Premium":{"region":"X Region","cond":"Frozen","porcion":"Wild Fork Steaks (1 Steak post Poro)","calibre":"Objetivo","mmpp":"Premium","fampack":"Wild Fork","yield_":0.61,"cv":1.2,"cf":0.344262,"ce":0.7,"frig":0.16,"exp":0.083333,"pct_obj":0.61,"pct_noobj":0,"rmp_noobj":5.6643,"pct_noobj2":0,"rmp_noobj2":0,"pct_cola":0,"rmp_cola":4.710033,"pct_trozo":0.04,"rmp_trozo":7.07,"pct_belly":0,"rmp_belly":0},"XII Region|Frozen|Skin off 5-8 oz Center Cut AyA|Premium":{"region":"XII Region","cond":"Frozen","porcion":"Skin off 5-8 oz Center Cut AyA","calibre":"Objetivo","mmpp":"Premium","fampack":"Generica","yield_":0.408,"cv":2.608,"cf":0,"ce":0.2,"frig":0.16,"exp":0.2,"pct_obj":0.349,"pct_noobj":0.013,"rmp_noobj":3.5457,"pct_noobj2":0,"rmp_noobj2":0,"pct_cola":0.028,"rmp_cola":2.935595,"pct_trozo":0.016,"rmp_trozo":7.07,"pct_belly":0,"rmp_belly":0},"XII Region|Frozen|Kirkland ABF 6-8 Oz|Premium":{"region":"XII Region","cond":"Frozen","porcion":"Kirkland ABF 6-8 Oz","calibre":"Objetivo","mmpp":"Premium","fampack":"Kirkland","yield_":0.421,"cv":2.7,"cf":0,"ce":0.38,"frig":0.1325,"exp":0.2,"pct_obj":0.383,"pct_noobj":0.023,"rmp_noobj":3.84423,"pct_noobj2":0,"rmp_noobj2":0,"pct_cola":0.015,"rmp_cola":3.185629,"pct_trozo":0.05,"rmp_trozo":7.07,"pct_belly":0,"rmp_belly":0}},"smoked":{"X Region|Filete|L45 - Premium Smoked Full Fat 2-3 Lb (2pzs/case)":{"region":"X Region","fam":"Filete","tipo":"Cold Smoked","producto":"L45 - Premium Smoked Full Fat 2-3 Lb (2pzs/case)","fampack":"","yield_":0.482,"cv":2.89,"cf":0.21,"ce":0.77,"frig":0.21,"exp":0.083333,"subprod":"Minced Frio","pct_noobj":0.01,"rmp_noobj":8.2,"cub":10621},"X Region|Filete|L45 - Classic Smoked Full Fat 2-3 Lb (2pzs/case)":{"region":"X Region","fam":"Filete","tipo":"Cold Smoked","producto":"L45 - Classic Smoked Full Fat 2-3 Lb (2pzs/case)","fampack":"","yield_":0.544,"cv":2.62,"cf":0.21,"ce":0.77,"frig":0.21,"exp":0.083333,"subprod":"Minced Frio","pct_noobj":0.01,"rmp_noobj":8.2,"cub":10621},"X Region|Filete|Multi X - Premium Smoked Full Fat 2-3 Lb (8pzs/case) FIX":{"region":"X Region","fam":"Filete","tipo":"Cold Smoked","producto":"Multi X - Premium Smoked Full Fat 2-3 Lb (8pzs/case) FIX","fampack":"","yield_":0.49,"cv":2.438981,"cf":0.9,"ce":0.520565,"frig":0.21,"exp":0.083333,"subprod":"Minced Frio","pct_noobj":0.01,"rmp_noobj":8.2,"cub":10621},"X Region|Filete|Multi X - Prime Smoked Full Fat-OFF 2-3 Lb (8pzs/case) FIX":{"region":"X Region","fam":"Filete","tipo":"Cold Smoked","producto":"Multi X - Prime Smoked Full Fat-OFF 2-3 Lb (8pzs/case) FIX","fampack":"","yield_":0.4069206,"cv":2.850722,"cf":0.9,"ce":0.52,"frig":0.21,"exp":0.083333,"subprod":"Minced Frio","pct_noobj":0.01,"rmp_noobj":8.2,"cub":10621},"X Region|Filete|Multi X - Classic Smoked Skin-on Sliced 2-4 Lb (8pzs/case) FIX":{"region":"X Region","fam":"Filete","tipo":"Cold Smoked","producto":"Multi X - Classic Smoked Skin-on Sliced 2-4 Lb (8pzs/case) FIX","fampack":"","yield_":0.5284,"cv":2.49,"cf":0.9,"ce":0.52,"frig":0.21,"exp":0.083333,"subprod":"Minced Frio","pct_noobj":0.01,"rmp_noobj":8.2,"cub":10621},"X Region|Filete|Multi X - Traditional Smoked Full Fat 2-3 Lb (8pzs/case) FIX":{"region":"X Region","fam":"Filete","tipo":"Cold Smoked","producto":"Multi X - Traditional Smoked Full Fat 2-3 Lb (8pzs/case) FIX","fampack":"","yield_":0.5676,"cv":1.38,"cf":0.9,"ce":0.52,"frig":0.21,"exp":0.083333,"subprod":"Minced Frio","pct_noobj":0.01,"rmp_noobj":8.2,"cub":10621},"X Region|Filete|Multi X - Unsliced Trim D 2-4 Lb - Peso Variable - [8 pz/case]":{"region":"X Region","fam":"Filete","tipo":"Cold Smoked","producto":"Multi X - Unsliced Trim D 2-4 Lb - Peso Variable - [8 pz/case]","fampack":"","yield_":0.553,"cv":1.3,"cf":0.9,"ce":0.2,"frig":0.21,"exp":0.083333,"subprod":"Minced Frio","pct_noobj":0,"rmp_noobj":8.2,"cub":0},"X Region|Filete|Multi  X - Trim A  4-5 Lbs Color":{"region":"X Region","fam":"Filete","tipo":"Cold Smoked","producto":"Multi  X - Trim A  4-5 Lbs Color","fampack":"","yield_":0.623,"cv":1.6,"cf":0.9,"ce":0.32,"frig":0.21,"exp":0.083333,"subprod":"Minced Frio","pct_noobj":0,"rmp_noobj":8.2,"cub":0},"X Region|Filete|Multi  X - Trim A  4-5 Lbs No Color":{"region":"X Region","fam":"Filete","tipo":"Cold Smoked","producto":"Multi  X - Trim A  4-5 Lbs No Color","fampack":"","yield_":0.623,"cv":1.5,"cf":0.9,"ce":0.3,"frig":0.21,"exp":0.083333,"subprod":"Minced Frio","pct_noobj":0,"rmp_noobj":8.2,"cub":0},"X Region|Filete|Multi  X - Trim D Unsliced  2-4 Lbs -  (8pzs/case) FIX":{"region":"X Region","fam":"Filete","tipo":"Hot Smoked","producto":"Multi  X - Trim D Unsliced  2-4 Lbs -  (8pzs/case) FIX","fampack":"","yield_":0.515,"cv":2.8,"cf":0.9,"ce":0.52,"frig":0.21,"exp":0.083333,"subprod":"Minced Caliente","pct_noobj":0,"rmp_noobj":2,"cub":0},"X Region|Filete|Multi  X - Trim E Full Fat Unsliced  2-4 Lbs -  (8pzs/case) FIX":{"region":"X Region","fam":"Filete","tipo":"Hot Smoked","producto":"Multi  X - Trim E Full Fat Unsliced  2-4 Lbs -  (8pzs/case) FIX","fampack":"","yield_":0.463,"cv":3,"cf":0.9,"ce":0.52,"frig":0.21,"exp":0.083333,"subprod":"Minced Caliente","pct_noobj":0,"rmp_noobj":2,"cub":0},"X Region|Loin|10 Oz Loin (L45) ":{"region":"X Region","fam":"Loin","tipo":"Cold Smoked","producto":"10 Oz Loin (L45) ","fampack":"","yield_":0.384,"cv":5.5,"cf":0.9,"ce":1.66,"frig":0.21,"exp":0.083333,"subprod":"Minced Frio","pct_noobj":0.03,"rmp_noobj":8.2,"cub":0},"X Region|Loin|8 Oz Loin (L45) - New Format":{"region":"X Region","fam":"Loin","tipo":"Cold Smoked","producto":"8 Oz Loin (L45) - New Format","fampack":"","yield_":0.382,"cv":4.97,"cf":0.9,"ce":1.21,"frig":0.21,"exp":0.083333,"subprod":"Minced Frio","pct_noobj":0.03,"rmp_noobj":8.2,"cub":10621},"X Region|Loin|6 Oz Loin (L45)":{"region":"X Region","fam":"Loin","tipo":"Cold Smoked","producto":"6 Oz Loin (L45)","fampack":"","yield_":0.377,"cv":5.62,"cf":0.9,"ce":1.9,"frig":0.21,"exp":0.083333,"subprod":"Minced Frio","pct_noobj":0.03,"rmp_noobj":8.2,"cub":0},"X Region|Portion|4 Oz Portion Pepper (L45)":{"region":"X Region","fam":"Portion","tipo":"Hot Smoked","producto":"4 Oz Portion Pepper (L45)","fampack":"","yield_":0.402,"cv":4.6,"cf":0.9,"ce":2.82,"frig":0.21,"exp":0.083333,"subprod":"Minced Caliente","pct_noobj":0.01,"rmp_noobj":2,"cub":10621},"X Region|Portion|4 Oz Portion Cajun (L45)":{"region":"X Region","fam":"Portion","tipo":"Hot Smoked","producto":"4 Oz Portion Cajun (L45)","fampack":"","yield_":0.408,"cv":4.32,"cf":0.9,"ce":2.34,"frig":0.21,"exp":0.083333,"subprod":"Minced Caliente","pct_noobj":0.01,"rmp_noobj":2,"cub":10621},"X Region|Portion|4 Oz Portion Trad. (L45)":{"region":"X Region","fam":"Portion","tipo":"Hot Smoked","producto":"4 Oz Portion Trad. (L45)","fampack":"","yield_":0.412,"cv":3.91,"cf":0.9,"ce":2.43,"frig":0.21,"exp":0.083333,"subprod":"Minced Caliente","pct_noobj":0.01,"rmp_noobj":2,"cub":10621},"X Region|Portion|12 Oz Trio Pack Portions (L45)":{"region":"X Region","fam":"Portion","tipo":"Hot Smoked","producto":"12 Oz Trio Pack Portions (L45)","fampack":"","yield_":0.419,"cv":3.17,"cf":0.9,"ce":2.13,"frig":0.21,"exp":0.083333,"subprod":"Minced Caliente","pct_noobj":0.01,"rmp_noobj":2,"cub":10621},"X Region|Portion|12 oz Skin-on Portion - [Lightly Smoked]":{"region":"X Region","fam":"Portion","tipo":"Cold Smoked","producto":"12 oz Skin-on Portion - [Lightly Smoked]","fampack":"","yield_":0.581,"cv":1.6,"cf":0.9,"ce":0.17,"frig":0.21,"exp":0.083333,"subprod":"Minced Caliente","pct_noobj":0,"rmp_noobj":2,"cub":10621},"X Region|Slice|4 Oz Slice (L45) - New Format":{"region":"X Region","fam":"Slice","tipo":"Cold Smoked","producto":"4 Oz Slice (L45) - New Format","fampack":"","yield_":0.373,"cv":5.94,"cf":0.9,"ce":2.46,"frig":0.21,"exp":0.083333,"subprod":"Minced Frio","pct_noobj":0.035,"rmp_noobj":8.2,"cub":10621},"X Region|Slice|4 Oz GravlaxSlice (L45) ":{"region":"X Region","fam":"Slice","tipo":"Cold Smoked","producto":"4 Oz GravlaxSlice (L45) ","fampack":"","yield_":0.373,"cv":5.94,"cf":0.9,"ce":2.46,"frig":0.21,"exp":0.083333,"subprod":"Minced Frio","pct_noobj":0.035,"rmp_noobj":8.2,"cub":0},"X Region|Slice|1.0 Lbs Slice L45":{"region":"X Region","fam":"Slice","tipo":"Cold Smoked","producto":"1.0 Lbs Slice L45","fampack":"","yield_":0.373,"cv":5.94,"cf":0.9,"ce":2.46,"frig":0.21,"exp":0.083333,"subprod":"Minced Frio","pct_noobj":0.035,"rmp_noobj":8.2,"cub":0},"X Region|Slice|1 kg Slice ":{"region":"X Region","fam":"Slice","tipo":"Cold Smoked","producto":"1 kg Slice ","fampack":"","yield_":0.373,"cv":5.94,"cf":0.9,"ce":2.46,"frig":0.21,"exp":0.083333,"subprod":"Minced Frio","pct_noobj":0.035,"rmp_noobj":8.2,"cub":0},"X Region|Trozo|ATL Roasted Candy 6 oz (L45) - 12 units- MAP":{"region":"X Region","fam":"Trozo","tipo":"Hot Smoked","producto":"ATL Roasted Candy 6 oz (L45) - 12 units- MAP","fampack":"","yield_":0.296,"cv":3.44,"cf":0.9,"ce":2.92,"frig":0.21,"exp":0.083333,"subprod":"Minced Caliente","pct_noobj":0,"rmp_noobj":2,"cub":0},"X Region|Trozo|Ceviche ":{"region":"X Region","fam":"Trozo","tipo":"Cold Smoked","producto":"Ceviche ","fampack":"","yield_":0.296,"cv":3.44,"cf":0.9,"ce":2.92,"frig":0.21,"exp":0.083333,"subprod":"Minced Caliente","pct_noobj":0,"rmp_noobj":2,"cub":0},"X Region|Trozo|ATL Roasted Candy 6 oz (L45) - 12 units- IVP":{"region":"X Region","fam":"Trozo","tipo":"Hot Smoked","producto":"ATL Roasted Candy 6 oz (L45) - 12 units- IVP","fampack":"","yield_":0.296,"cv":3.44,"cf":0.9,"ce":2.92,"frig":0.21,"exp":0.083333,"subprod":"Minced Caliente","pct_noobj":0,"rmp_noobj":2,"cub":0}},"smoked_wh":{"Smoked|BOSTON INTERNATIONAL AIRPORT|Aéreo":{"name":"Aéreo","cond":"Smoked","despacho":"Aéreo","total":0.09},"Smoked|MIAMI INTERNATIONAL TRANSIT|Aéreo":{"name":"Aéreo","cond":"Smoked","despacho":"Aéreo","total":0.15},"Smoked|PRIME FRESH HANDLING_CA|Aéreo":{"name":"Aéreo","cond":"Smoked","despacho":"Aéreo","total":0.25},"Smoked|EVO LOGISTICS (CA)|Aéreo":{"name":"Aéreo","cond":"Smoked","despacho":"Aéreo","total":0.24},"Smoked|HOUSTON INTERNATIONAL AIRPORT|Aéreo":{"name":"Aéreo","cond":"Smoked","despacho":"Aéreo","total":0.09},"Smoked|JFK INTERNATIONAL AIRPORT|Aéreo":{"name":"Aéreo","cond":"Smoked","despacho":"Aéreo","total":0.09},"Smoked|LOS ANGELES INTERN. AIRPORT|Aéreo":{"name":"Aéreo","cond":"Smoked","despacho":"Aéreo","total":0.12},"Smoked|DALLAS INTERNATIONAL AIRPORT|Aéreo":{"name":"Aéreo","cond":"Smoked","despacho":"Aéreo","total":0.09},"Smoked|SEATTLE INTERNATIONAL AIRPORT|Aéreo":{"name":"Aéreo","cond":"Smoked","despacho":"Aéreo","total":0.12},"Smoked|MIAMI INTERNATIONAL AIRPORT|Aéreo":{"name":"Aéreo","cond":"Smoked","despacho":"Aéreo","total":0.09},"Smoked|EVO LOGISTICS_TX|Aéreo":{"name":"Aéreo","cond":"Smoked","despacho":"Aéreo","total":0.24},"Smoked|FREEZPAK LOGISTICS_IL|Marítimo":{"name":"Marítimo","cond":"Smoked","despacho":"Marítimo","total":0.69},"Smoked|VERSACOLD LOGISTICS_LACHINE|Marítimo":{"name":"Marítimo","cond":"Smoked","despacho":"Marítimo","total":0.43},"Smoked|LINEAGE LOGISTICS_ELIZABETH_NJ|Marítimo":{"name":"Marítimo","cond":"Smoked","despacho":"Marítimo","total":0.3},"Smoked|VERTICAL COLD STORAGE_FL|Marítimo":{"name":"Marítimo","cond":"Smoked","despacho":"Marítimo","total":0.43},"Smoked|LINEAGE LOGISTICS PFS_HOUSTON|Marítimo":{"name":"Marítimo","cond":"Smoked","despacho":"Marítimo","total":0.43},"Smoked|LINEAGE LOGISTICS PFS_ATLANTA|Marítimo":{"name":"Marítimo","cond":"Smoked","despacho":"Marítimo","total":0.43},"Smoked|LINEAGE LOGISTICS PFS_VERNON|Marítimo":{"name":"Marítimo","cond":"Smoked","despacho":"Marítimo","total":0.43},"Smoked|LINEAGE LOGISTICS PFS_CHICAGO|Marítimo":{"name":"Marítimo","cond":"Smoked","despacho":"Marítimo","total":0.43},"Smoked|INTERSTATE WAREHOUSING_IN|Marítimo":{"name":"Marítimo","cond":"Smoked","despacho":"Marítimo","total":0.43},"Smoked|INTERSTATE WAREHOUSING_AZ|Marítimo":{"name":"Marítimo","cond":"Smoked","despacho":"Marítimo","total":0.43},"Smoked|IGLOO EXCHANGE_MI|Marítimo":{"name":"Marítimo","cond":"Smoked","despacho":"Marítimo","total":0.43},"Smoked|PORT OF HALIFAX|Marítimo":{"name":"Marítimo","cond":"Smoked","despacho":"Marítimo","total":0.43},"Smoked|PORT OF NEW YORK|Marítimo":{"name":"Marítimo","cond":"Smoked","despacho":"Marítimo","total":0.43},"Smoked|PORT OF SAN JUAN_PR|Marítimo":{"name":"Marítimo","cond":"Smoked","despacho":"Marítimo","total":0.43},"Smoked|PORT OF SEATTLE_WA|Marítimo":{"name":"Marítimo","cond":"Smoked","despacho":"Marítimo","total":0.43},"Smoked|LINEAGE LOGISTICS PFS_MIAMI 3|Marítimo":{"name":"Marítimo","cond":"Smoked","despacho":"Marítimo","total":0.47},"Smoked|LINEAGE LOGISTICS_JACKSONV_FL|Marítimo":{"name":"Marítimo","cond":"Smoked","despacho":"Marítimo","total":0.43},"Smoked|LINEAGE LOGISTICS MTC_JESSUP|Marítimo":{"name":"Marítimo","cond":"Smoked","despacho":"Marítimo","total":0.43},"Smoked|LINEAGE LOGISTICS PFS_MIAMI 4|Marítimo":{"name":"Marítimo","cond":"Smoked","despacho":"Marítimo","total":0.47},"Smoked|PORT EVERGLADES_FL|Marítimo":{"name":"Marítimo","cond":"Smoked","despacho":"Marítimo","total":0.43},"Smoked|PORT OF LONG BEACH_CA|Marítimo":{"name":"Marítimo","cond":"Smoked","despacho":"Marítimo","total":0.43},"Smoked|LINEAGE LOGISTICS PFS_WOODLAND|Marítimo":{"name":"Marítimo","cond":"Smoked","despacho":"Marítimo","total":0.43},"Smoked|LINEAGE LOGISTICS PFS_MEDLEY|Marítimo":{"name":"Marítimo","cond":"Smoked","despacho":"Marítimo","total":0.43},"Smoked|PORT OF BOSTON_MA|Marítimo":{"name":"Marítimo","cond":"Smoked","despacho":"Marítimo","total":0.43},"Smoked|PORT OF BALTIMORE_MD|Marítimo":{"name":"Marítimo","cond":"Smoked","despacho":"Marítimo","total":0.43}}}</script>
+<script>function doLogin(){var val=document.getElementById('pwd').value.trim().toLowerCase();if(val==='salmex'){document.getElementById('lock').style.display='none';document.getElementById('app').style.display='block';}else{document.getElementById('lerr').textContent='Incorrect password';document.getElementById('pwd').value='';}}</script>
+<script>var D=JSON.parse(document.getElementById('rmp-data').textContent);var LOGO_SRC="data:image/png;base64,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";</script>
+<script>var D;
+
+var GW_DATA = {
+  "X Region|Frozen - Trim D|10 kg": 0.951,
+  "X Region|Frozen - Trim D|15 kg": 0.959,
+  "X Region|Frozen - Trim D|10 kg con Film": 0.951,
+  "X Region|Frozen - Trim D|15 kg con Film": 0.959,
+  "X Region|Frozen - Trim E|10 kg": 0.945,
+  "X Region|Frozen - Trim E|15 kg": 0.945,
+  "X Region|Frozen - Trim E|10 kg con Film": 0.945,
+  "X Region|Frozen - Trim E|15 kg con Film": 0.945,
+  "XII Region|Frozen - Trim D|10 kg": 0.970,
+  "XII Region|Frozen - Trim D|15 kg": 0.974,
+  "XII Region|Frozen - Trim E|10 kg": 0.980,
+  "XII Region|Frozen - Trim E|15 kg": 0.980,
+}
+
+var CUB_DEFAULTS = {
+  "Frozen - HON|25 kg":                   19500,
+  "Frozen - Trim D|10 kg":                19500,
+  "Frozen - Trim D|15 kg":                19500,
+  "Frozen - Trim D|10 kg - Catch Weight": 20000,
+  "Frozen - Trim D|15 kg - Catch Weight": 20000,
+  "Frozen - Trim D|10 kg con Film":       19500,
+  "Frozen - Trim D|15 kg con Film":       19500,
+  "Frozen - Trim E|10 kg":                18140,
+  "Frozen - Trim E|15 kg":                19500,
+  "Frozen - Trim E|10 kg - Catch Weight": 18140,
+  "Frozen - Trim E|15 kg - Catch Weight": 19500,
+  "Frozen - Trim E|10 kg con Film":       18140,
+  "Frozen - Trim E|15 kg con Film":       19500,
+  "Frozen - Trim IQF|15 kg":              19500,
+  "Frozen - Block|15 kg":                 19500,
+  "Frozen - Block|66 LF":                 19500,
+}
+
+var DEST_PAIS = {
+  "Algeciras": "España", "Amberes": "Bélgica", "Ashdod": "Israel",
+  "Baltimore": "USA", "Bangkok (BKK)": "Tailandia", "Bilbao": "España",
+  "Boulogne sur Mer": "Francia", "Br-GRU (aéreo)": "Brasil",
+  "Buenaventura": "Colombia", "Busan": "Corea del Sur", "Caldera": "Costa Rica",
+  "Cartagena": "Colombia", "Cebu": "Filipinas", "Chicago": "USA",
+  "Chile": "Chile", "Ciudad de México": "México", "Colombia (aéreo)": "Colombia",
+  "Constanta": "Romania", "Ensenada": "México", "General Santos": "Filipinas",
+  "Genova": "Italy", "Guanzhou (aéreo)": "China",
+  "Guanzhou FCA SCL (aéreo)": "China", "Guayaquil": "Ecuador",
+  "HND": "Japón", "Halifax": "Canadá", "Hamburgo": "Alemania",
+  "Ho Chi Min - Catlai port": "Vietnam", "Houston": "USA",
+  "ICN": "Corea del Sur", "Jacksonville": "USA", "Jakarta": "Indonesia",
+  "KIX": "Japón", "Kaohsiung": "Taiwan", "Keelung": "Taiwan",
+  "Klaipeda ": "Lituania", "La Guaira": "Venezuela", "Lat Krabang": "Tailandia",
+  "Le Havre": "Francia", "Leixoes": "Portugal", "Long Beach / LA": "USA",
+  "Madrid (aéreo)": "España", "Manila": "Filipinas", "Manzanillo": "México",
+  "Melbourne": "Australia", "Mexico (aéreo)": "México", "Montego": "Jamaica",
+  "Montevideo MVD": "Uruguay", "Montreal": "Canadá", "Moscu": "Rusia",
+  "New York": "USA", "Newark": "USA", "Norfolk": "USA",
+  "Pekin (aéreo)": "China", "Penang": "Malasia", "Peru (aéreo)": "Peru",
+  "Philadelphia": "USA", "Point des Galets": "Isla de Reunion",
+  "Port Everglades ": "USA", "Port Klang": "Malasia", "Qingdao": "China",
+  "Saint Petersburg": "Rusia", "San Juan": "Puerto Rico", "Savannah": "USA",
+  "Seattle": "USA", "Shanghai": "China", "Shanghai (aéreo)": "China",
+  "Shanghai FCA SCL (aéreo)": "China", "Sidney": "Australia",
+  "Sihanoukville": "Camboya", "Singapour": "Singapour", "Sydney": "Australia",
+  "Szczecin": "Poland", "Tel Aviv (aéreo)": "Israel", "Tianjin": "China",
+  "Tokyo": "Japón", "Toronto": "Canadá",
+  "Usa-ATL (aéreo)": "USA", "Usa-BOS (aéreo)": "USA", "Usa-DFW (aéreo)": "USA",
+  "Usa-IAH (aéreo)": "USA", "Usa-JFK (aéreo)": "USA", "Usa-LAX (aéreo)": "USA",
+  "Usa-Mia (aéreo)": "USA", "Usa-RFD (aéreo)": "USA", "Usa-SEA (aéreo)": "USA",
+  "Usa-SFO (aéreo)": "USA",
+}
+
+var PERIODOS = ['H1 26','Q4 25','Q3 25'];
+var REGIONES = ['X Region','XII Region'];
+var CONDICIONES = ['Fresh','Frozen'];
+var DESPACHOS = ['Air','Maritime','Land'];
+var COMM_RATE = 0.02;
+var TARIFF_PCT = 0.1;
+var fmt = (v, d=4) => v==null||isNaN(v) ? '—' : (+v).toFixed(d);
+var isUSADestino = (d) => d && d.toLowerCase().includes('usa');
+var getMercadoFromDestino = (destino) => {
+  if (!destino) return "";
+  // Use exact mapping from Parametros sheet (col J = Mercado)
+  return DEST_PAIS[destino] || destino;
+};
+
+// Map display names → original Spanish data keys
+function despachoKey(d) {
+  if (d === "Air")      return "Aéreo";
+  if (d === "Maritime") return "Marítimo";
+  if (d === "Land")     return "Terrestre";
+  return d; // already Spanish (desktop JSX still uses Spanish internally)
+}
+
+function calcAll(form, overrideFleteUnit = null, cantCajas = 500, overrideTara = null, overrideWh = null, overrideTariff = null) {
+  var { region, condicion, producto, pack, destino, despacho, warehouse, sp, cubicacion } = form;
+  var despachoK = despachoKey(despacho); // key for D.fletes / D.wh lookups
+
+  // Product params
+  var prodKey = `${region}|${condicion}|${producto}`;
+  var prod = D.products[prodKey];
+  if (!prod) return null;
+
+  var famPack = prod.FamiliaPack || "";
+  var yield_base = prod.yield_ || 0;
+  var gwKey = `${region}|${famPack}|${pack}`;
+  var giveaway = GW_DATA[gwKey] || 1.0;
+  var yield_ = yield_base * giveaway;
+  var cv = prod.cv || 0;
+  var cf_wfe = prod.cf || 0;
+  var cf = yield_ > 0 ? cf_wfe / yield_ : 0;  // CF per kg PT
+  var frig = prod.frig || 0;
+  // ExPlanta dinámica según cajas (solo para HON China SP / HON China / HON China DUM)
+  var prodKeyForCajas = `${region}|${condicion}|${producto}`;
+  var exp;
+  var cajas = parseFloat(cantCajas) || 500;
+  // Peso por caja según pack
+  var kgPorCaja = pack.includes("5-6") ? 22 : 20;
+  if (prodKeyForCajas === "X Region|Fresh|HON China SP") {
+    exp = 1921 / (cajas * kgPorCaja) + 0.09;
+  } else if (prodKeyForCajas === "XII Region|Fresh|HON China" || prodKeyForCajas === "XII Region|Fresh|HON China DUM") {
+    exp = 4400 / (cajas * kgPorCaja);
+  } else if (region === "XII Region" && despachoK === "Aéreo" && getMercadoFromDestino(destino) === "USA") {
+    if (destino === "Usa-Mia (aéreo)") {
+      exp = 4752 / 15000;
+    } else if (destino === "Usa-LAX (aéreo)" || destino === "Usa-JFK (aéreo)") {
+      exp = (903000 / 900) / 6000;
+    } else {
+      exp = prod.exp || 0;
+    }
+  } else {
+    exp = prod.exp || 0;
+  }
+
+  // CE lookup
+  var ceKey = `${region}|${famPack}|${pack}`;
+  var ce = D.ce[ceKey] ?? null;
+
+  // GFOB (all per kg PT)
+  var gfob = ce != null ? cv + ce + cf + exp + frig : null;
+
+  // Freight
+  var fleteKey = `${region}|${despachoK}|${destino}`;
+  var fleteData = D.fletes[fleteKey];
+  var fleteUnit = fleteData ? fleteData.flete : null;
+  var taraKey = `${condicion}|${pack}`;
+  var tara = overrideTara !== null ? overrideTara : (D.taras[taraKey] ?? 1.0);
+
+  // Override fleteUnit if manual mode active, then recalculate freight
+  var effectiveFleteUnit = (overrideFleteUnit !== null) ? overrideFleteUnit : fleteUnit;
+
+  var freight = null;
+  if (effectiveFleteUnit != null) {
+    if (despachoK === "Aéreo") {
+      freight = effectiveFleteUnit * tara;
+    } else if (despachoK === "Marítimo") {
+      var cub = parseFloat(cubicacion);
+      freight = cub > 0 ? (effectiveFleteUnit / cub) * tara : null;
+    } else {
+      freight = 0;
+    }
+  }
+
+  // Market
+  var mercado = getMercadoFromDestino(destino);
+  var isUSA = mercado === "USA";
+  var spNum = parseFloat(sp);
+  if (isNaN(spNum) || spNum <= 0) return { yield_, cv, ce, cf, cf_wfe, frig, exp, gfob, fleteUnit: effectiveFleteUnit, tara, freight, mercado, isUSA, sp_kg: null, gfob_full: gfob };
+
+  // Sales Price [USD/kg PT]
+  var sp_kg = isUSA ? spNum / 0.4536 : spNum;
+
+  // Warehouse, commission, tariff (USA only)
+  var wh_total = 0, commission = 0, tariff_val = 0, total_ae = 0, tariff_auto = 0, tariff_pct_used = 0;
+  if (isUSA) {
+    var whKey = `${condicion}|${warehouse}|${despachoK}`;
+    wh_total = overrideWh !== null ? overrideWh : ((D.wh[whKey] && warehouse) ? D.wh[whKey].total : 0);
+    commission = (spNum - wh_total) * COMM_RATE;
+    var effectiveTariffPct = overrideTariff !== null ? overrideTariff : TARIFF_PCT;
+    var tariff_base = effectiveTariffPct > 0 ? ((spNum - wh_total) * (1 - COMM_RATE) / 0.4536 - (freight || 0)) * effectiveTariffPct * 0.4536 / (1 + effectiveTariffPct) : 0;
+    tariff_auto = Math.max(0, tariff_base);
+    tariff_val = tariff_auto;
+    tariff_pct_used = effectiveTariffPct;
+    total_ae = wh_total + commission + tariff_val;
+  }
+
+  // RMP
+  var rmp = gfob != null && freight != null
+    ? (sp_kg - (isUSA ? total_ae / 0.4536 : 0) - freight - gfob) * yield_
+    : null;
+
+  // FOB Price & Firm Price
+  var fob_price = rmp != null ? rmp / yield_ + gfob : null;
+  var firm_price = isUSA ? spNum - wh_total - commission - tariff_val : spNum;
+  var retorno = rmp != null ? rmp / yield_ : null;
+
+  // TDE — binary search
+    var tde = null;
+    var tdeRef2 = D.tde_base[state.region];
+    if (tdeRef2 && rmp != null) {
+      var ty2=tdeRef2.yield_, tg2=tdeRef2.gfob, tf2=tdeRef2.freight, twh2=tdeRef2.wh, tcr2=tdeRef2.comm_rate, ttp2=tdeRef2.tariff_pct;
+      var lo2=0.01, hi2=60.0;
+      for (var bi=0; bi<80; bi++) {
+        var mid2=(lo2+hi2)/2;
+        var tc2=(mid2-twh2)*tcr2;
+        var tt2=Math.max(0,((mid2-twh2)*(1-tcr2)/0.4536-tf2)*ttp2*0.4536/(1+ttp2));
+        var rm2=(mid2/0.4536-(twh2+tc2+tt2)/0.4536-tf2-tg2)*ty2;
+        if (rm2 < rmp) lo2=mid2; else hi2=mid2;
+      }
+      tde = (lo2+hi2)/2;
+    }
+  }
+
+  return {
+    yield_, yield_base, giveaway, cv, ce, cf, cf_wfe, frig, exp, gfob,
+    fleteUnit: effectiveFleteUnit, tara, freight,
+    mercado, isUSA,
+    sp_kg, wh_total, commission, tariff_val, tariff_auto, tariff_pct_used, total_ae,
+    rmp, tde, fob_price, firm_price, retorno, retorno_neto: retorno,
+    famPack, ceKey, prodKey, fleteKey,
+  };
+}
+
+var PRODUCTOS_CAJAS = new Set([
+  "X Region|Fresh|HON China SP",
+  "XII Region|Fresh|HON China",
+  "XII Region|Fresh|HON China DUM",
+]);
+</script>
+<script>
+// ─── STATE ───────────────────────────────────────────────────────────────────
+var state = {
+  region: "", condicion: "", famProducto: "", producto: "", pack: "",
+  despacho: "", pais: "", destino: "", cubicacion: "", warehouse: "", sp: "",
+  cantCajas: "500",
+  fleteManual:   { active: false, value: "" },
+  taraManual:    { active: false, value: "" },
+  whManual:      { active: false, value: "" },
+  tariffManual:  { active: false, value: "" },
+  tab: 0,
+  favsOpen: false,
+  saveMode: false,
+  saveName: "",
+  compareIds: [],
+  usaExpanded: false
+};
+
+// ─── FAVORITES ───────────────────────────────────────────────────────────────
+var favs = (function() { try { return JSON.parse(localStorage.getItem("rmp_favs") || "[]"); } catch(e) { return []; } })();
+
+function persistFavs() {
+  try { localStorage.setItem("rmp_favs", JSON.stringify(favs)); } catch(e) {}
+}
+
+function saveFav(name) {
+  if (!name || !name.trim()) return;
+  favs.unshift({
+    id: Date.now(), name: name.trim(),
+    form: JSON.parse(JSON.stringify(state)),
+    fleteManual:  JSON.parse(JSON.stringify(state.fleteManual)),
+    taraManual:   JSON.parse(JSON.stringify(state.taraManual)),
+    whManual:     JSON.parse(JSON.stringify(state.whManual)),
+    tariffManual: JSON.parse(JSON.stringify(state.tariffManual)),
+    cantCajas: state.cantCajas
+  });
+  persistFavs();
+  state.saveMode = false; state.saveName = "";
+  state.favsOpen = true;
+  render();
+}
+
+function deleteFav(id) {
+  favs = favs.filter(function(f) { return f.id !== id; });
+  state.compareIds = state.compareIds.filter(function(x) { return x !== id; });
+  persistFavs(); render();
+}
+
+function loadFav(fav) {
+  var tab = state.tab;
+  Object.assign(state, fav.form);
+  state.fleteManual  = fav.fleteManual  || { active: false, value: "" };
+  state.taraManual   = fav.taraManual   || { active: false, value: "" };
+  state.whManual     = fav.whManual     || { active: false, value: "" };
+  state.tariffManual = fav.tariffManual || { active: false, value: "" };
+  state.cantCajas    = fav.cantCajas    || "500";
+  state.favsOpen = false; state.compareIds = []; state.tab = 3;
+  render();
+}
+
+function toggleCompare(id) {
+  var ids = state.compareIds;
+  if (ids.includes(id)) {
+    state.compareIds = ids.filter(function(x) { return x !== id; });
+  } else if (ids.length < 2) {
+    state.compareIds = ids.concat([id]);
+  } else {
+    state.compareIds = [ids[1], id];
+  }
+  render();
+}
+
+function calcFav(fav) {
+  var fl  = fav.fleteManual  && fav.fleteManual.active  && fav.fleteManual.value  !== "" ? parseFloat(fav.fleteManual.value)  : null;
+  var tr  = fav.taraManual   && fav.taraManual.active   && fav.taraManual.value   !== "" ? parseFloat(fav.taraManual.value)   : null;
+  var wh  = fav.whManual     && fav.whManual.active     && fav.whManual.value     !== "" ? parseFloat(fav.whManual.value)     : null;
+  var trf = fav.tariffManual && fav.tariffManual.active && fav.tariffManual.value !== "" ? parseFloat(fav.tariffManual.value) / 100 : null;
+  return calcAll(fav.form, fl, parseFloat(fav.cantCajas) || 500, tr, wh, trf);
+}
+
+// Debounce para inputs de texto
+var _debTimer = null;
+function debounce(fn, ms) {
+  clearTimeout(_debTimer);
+  _debTimer = setTimeout(fn, ms);
+}
+
+// ─── COLORS ──────────────────────────────────────────────────────────────────
+var C = {
+  bg: "#070b14", card: "rgba(255,255,255,.04)", border: "rgba(0,207,255,.15)",
+  cyan: "#00cfff", amber: "#f59e0b", green: "#34d399", red: "#f87171",
+  purple: "#c084fc", muted: "#64748b", text: "#e2e8f0"
+};
+
+// ─── DERIVED DATA HELPERS ─────────────────────────────────────────────────────
+function getFamProductos() {
+  if (!state.region || !state.condicion) return [];
+  var s = new Set();
+  Object.values(D.products).forEach(p => {
+    if (p.Region === state.region && p.Condicion === state.condicion)
+      s.add(p.FamiliaProducto.trim());
+  });
+  return [...s].sort();
+}
+
+function getProductos() {
+  if (!state.famProducto) return [];
+  var s = new Set();
+  Object.values(D.products).forEach(p => {
+    if (p.Region === state.region && p.Condicion === state.condicion &&
+        p.FamiliaProducto.trim() === state.famProducto)
+      s.add(p.Producto);
+  });
+  return [...s].sort();
+}
+
+function getPacks() {
+  var prod = D.products[`${state.region}|${state.condicion}|${state.producto}`];
+  if (!prod) return [];
+  return Object.keys(D.ce)
+    .filter(k => k.startsWith(`${state.region}|${prod.FamiliaPack}|`))
+    .map(k => k.split("|")[2]).sort();
+}
+
+function getAllDestinos() {
+  if (!state.region || !state.despacho) return [];
+  var prefix = `${state.region}|${despachoKey(state.despacho)}|`;
+  return Object.keys(D.fletes).filter(k => k.startsWith(prefix))
+    .map(k => k.slice(prefix.length)).sort();
+}
+
+function getPaises() {
+  var all = getAllDestinos();
+  return [...new Set(all.map(d => DEST_PAIS[d] || "Otros"))].sort();
+}
+
+function getDestinos() {
+  var all = getAllDestinos();
+  if (!state.pais) return all;
+  return all.filter(d => DEST_PAIS[d] === state.pais);
+}
+
+
+var DEST_WH = {
+  "Usa-Mia (aéreo)":  ["MIAMI INTERNATIONAL TRANSIT", "MIAMI INTERNATIONAL AIRPORT"],
+  "Usa-JFK (aéreo)":  ["JFK INTERNATIONAL AIRPORT", "BOSTON INTERNATIONAL AIRPORT"],
+  "Usa-LAX (aéreo)":  ["EVO LOGISTICS (CA)", "LOS ANGELES INTERN. AIRPORT", "PRIME FRESH HANDLING_CA"],
+  "Usa-IAH (aéreo)":  ["HOUSTON INTERNATIONAL AIRPORT", "EVO LOGISTICS_TX"],
+  "Usa-ATL (aéreo)":  ["DALLAS INTERNATIONAL AIRPORT", "EVO LOGISTICS_TX"],
+  "Usa-SEA (aéreo)":  ["SEATTLE INTERNATIONAL AIRPORT"],
+  "Usa-DFW (aéreo)":  ["DALLAS INTERNATIONAL AIRPORT", "EVO LOGISTICS_TX"],
+  "Usa-BOS (aéreo)":  ["BOSTON INTERNATIONAL AIRPORT"],
+  "Port Everglades ": ["PORT EVERGLADES_FL", "VERTICAL COLD STORAGE_FL", "LINEAGE LOGISTICS PFS_MIAMI 3", "LINEAGE LOGISTICS PFS_MIAMI 4", "LINEAGE LOGISTICS PFS_MEDLEY"],
+  "Baltimore":        ["PORT OF BALTIMORE_MD", "LINEAGE LOGISTICS MTC_JESSUP"],
+  "Newark":           ["LINEAGE LOGISTICS_ELIZABETH_NJ", "PORT OF NEW YORK", "LINEAGE LOGISTICS MTC_JESSUP"],
+  "New York":         ["PORT OF NEW YORK", "LINEAGE LOGISTICS_ELIZABETH_NJ"],
+  "Jacksonville":     ["LINEAGE LOGISTICS_JACKSONV_FL"],
+  "Seattle":          ["PORT OF SEATTLE_WA"],
+  "Houston":          ["LINEAGE LOGISTICS PFS_HOUSTON"],
+  "Long Beach / LA":  ["PORT OF LONG BEACH_CA", "LINEAGE LOGISTICS PFS_VERNON", "LINEAGE LOGISTICS PFS_WOODLAND"],
+  "Philadelphia":     ["LINEAGE LOGISTICS MTC_JESSUP", "LINEAGE LOGISTICS_ELIZABETH_NJ"],
+  "Norfolk":          ["LINEAGE LOGISTICS MTC_JESSUP"],
+  "Savannah":         ["LINEAGE LOGISTICS PFS_ATLANTA"],
+  "Chicago":          ["LINEAGE LOGISTICS PFS_CHICAGO", "FREEZPAK LOGISTICS_IL", "IGLOO EXCHANGE_MI", "INTERSTATE WAREHOUSING_IN", "INTERSTATE WAREHOUSING_AZ"],
+  "Halifax":          ["PORT OF HALIFAX", "VERSACOLD LOGISTICS_LACHINE"],
+  "San Juan":         ["PORT OF SAN JUAN_PR"],
+  "Montreal":         ["VERSACOLD LOGISTICS_LACHINE", "PORT OF HALIFAX"],
+  "Toronto":          ["VERSACOLD LOGISTICS_LACHINE", "PORT OF HALIFAX"],
+};
+function getWarehouses() {
+  if (getMercadoFromDestino(state.destino) !== "USA") return [];
+  var all = Object.entries(D.wh)
+    .filter(([k]) => k.startsWith(`${state.condicion}|`) && k.endsWith(`|${despachoKey(state.despacho)}`))
+    .map(([, v]) => v.name);
+  var allowed = DEST_WH[state.destino];
+  if (allowed) return allowed.filter(function(w) { return all.indexOf(w) >= 0; });
+  return all.sort();
+}
+
+function getWarehouseDefault() {
+  var allowed = DEST_WH[state.destino];
+  return allowed ? allowed[0] : null;
+}
+
+function getCalc() {
+  var fl = state.fleteManual.active && state.fleteManual.value !== ""
+    ? parseFloat(state.fleteManual.value) : null;
+  var tr = state.taraManual.active && state.taraManual.value !== ""
+    ? parseFloat(state.taraManual.value) : null;
+  var wh = state.whManual.active && state.whManual.value !== ""
+    ? parseFloat(state.whManual.value) : null;
+  var tf = state.tariffManual.active && state.tariffManual.value !== "" ? parseFloat(state.tariffManual.value) / 100 : null;
+  return calcAll(state, fl, parseFloat(state.cantCajas) || 500, tr, wh, tf);
+}
+
+function getCalcBase() {
+  return calcAll(state, null, parseFloat(state.cantCajas) || 500, null, null);
+}
+
+function rmpColor(rmp) {
+  if (rmp == null) return C.muted;
+  return rmp >= 7 ? C.green : rmp >= 5.5 ? C.amber : C.red;
+}
+
+// ─── STATE MUTATIONS ──────────────────────────────────────────────────────────
+function set(k, v) {
+  state[k] = v;
+  if (k === "region" || k === "condicion") {
+    state.famProducto = ""; state.producto = ""; state.pack = "";
+    state.despacho = ""; state.destino = ""; state.warehouse = "";
+    state.cubicacion = ""; state.pais = "";
+  }
+  if (k === "famProducto") {
+    state.producto = ""; state.pack = ""; state.cubicacion = "";
+    state.fleteManual = { active: false, value: "" };
+    state.taraManual  = { active: false, value: "" };
+  }
+  if (k === "producto") {
+    state.pack = ""; state.cubicacion = "";
+    state.fleteManual = { active: false, value: "" };
+    state.taraManual  = { active: false, value: "" };
+    state.cantCajas = "500";
+    if (!state.despacho) {
+      if (v === "HON Brasil") { state.despacho = "Land"; }
+      else if (v === "HON China" || v === "HON China SP" || v === "HON China DUM") {
+        state.despacho = "Air"; state.pais = "China";
+      } else if (state.condicion === "Fresh")  { state.despacho = "Air"; }
+      else if (state.condicion === "Frozen") { state.despacho = "Maritime"; }
+    }
+  }
+  if (k === "despacho") { state.destino = ""; state.warehouse = ""; state.pais = ""; }
+  if (k === "destino")  { state.warehouse = ""; state.whManual = { active: false, value: "" }; state.tariffManual = { active: false, value: "" }; }
+  if (k === "pack") {
+    state.taraManual = { active: false, value: "" };
+    var prod = D.products[`${state.region}|${state.condicion}|${state.producto}`];
+    if (prod && state.condicion === "Frozen") {
+      var cub = CUB_DEFAULTS[`${prod.FamiliaPack}|${v}`];
+      if (cub) state.cubicacion = String(cub);
+    }
+    // Auto-fill single options
+    autoFill();
+  }
+  autoFill();
+  render();
+}
+
+function autoFill() {
+  var fps = getFamProductos();
+  if (fps.length === 1 && !state.famProducto) { state.famProducto = fps[0]; }
+  var ps = getProductos();
+  if (ps.length === 1 && !state.producto) { state.producto = ps[0]; }
+  var pks = getPacks();
+  if (pks.length === 1 && !state.pack) {
+    state.pack = pks[0];
+    var prod = D.products[`${state.region}|${state.condicion}|${state.producto}`];
+    if (prod && state.condicion === "Frozen") {
+      var cub = CUB_DEFAULTS[`${prod.FamiliaPack}|${pks[0]}`];
+      if (cub) state.cubicacion = String(cub);
+    }
+  }
+  var pais = getPaises();
+  if (pais.length === 1 && !state.pais) { state.pais = pais[0]; state.destino = ""; state.warehouse = ""; }
+  var dests = getDestinos();
+  if (dests.length === 1 && !state.destino) { state.destino = dests[0]; }
+  var whs = getWarehouses();
+  if (!state.warehouse && whs.length > 0) {
+    var def = getWarehouseDefault();
+    state.warehouse = (def && whs.indexOf(def) >= 0) ? def : whs[0];
+  }
+}
+
+// ─── DOM HELPERS ──────────────────────────────────────────────────────────────
+var $ = id => document.getElementById(id);
+
+function el(tag, attrs, ...children) {
+  var e = document.createElement(tag);
+  if (attrs) Object.entries(attrs).forEach(([k, v]) => {
+    if (k === "style" && typeof v === "object") Object.assign(e.style, v);
+    else if (k.startsWith("on")) e.addEventListener(k.slice(2).toLowerCase(), v);
+    else if (k === "className") e.className = v;
+    else e.setAttribute(k, v);
+  });
+  children.flat().forEach(c => {
+    if (c == null || c === false) return;
+    e.appendChild(typeof c === "string" ? document.createTextNode(c) : c);
+  });
+  return e;
+}
+
+function makeSelect(opts, value, onChange, disabled) {
+  var s = el("select", {
+    style: {
+      width: "100%", padding: "12px", background: "rgba(255,255,255,.05)",
+      border: `1px solid ${C.border}`, borderRadius: "8px", color: C.text,
+      fontSize: "15px", fontFamily: "'Outfit',sans-serif", outline: "none",
+      opacity: disabled ? ".4" : "1", marginBottom: "2px"
+    },
+    onChange: e => onChange(e.target.value)
+  });
+  if (disabled) s.disabled = true;
+  s.appendChild(el("option", { value: "" }, "— Select —"));
+  opts.forEach(o => {
+    var opt = el("option", { value: o }, o);
+    if (o === value) opt.selected = true;
+    s.appendChild(opt);
+  });
+  return s;
+}
+
+function makeInput(value, onChange, placeholder, extraStyle) {
+  var inp = el("input", {
+    type: "text", inputmode: "decimal", value: value || "", placeholder: placeholder || "",
+    style: {
+      width: "100%", padding: "12px", background: "rgba(255,255,255,.05)",
+      border: "1px solid " + C.border, borderRadius: "8px", color: C.text,
+      fontSize: "15px", fontFamily: "'JetBrains Mono',monospace", outline: "none"
+    }
+  });
+  if (extraStyle) Object.assign(inp.style, extraStyle);
+  inp.addEventListener("blur", function(e) {
+    var norm = e.target.value.replace(",", ".");
+    e.target.value = norm;
+    onChange(norm);
+  });
+  return inp;
+}
+
+function makeLocked(value, extraStyle) {
+  return el("div", {
+    style: {
+      width: "100%", padding: "11px 12px", background: "rgba(255,255,255,.03)",
+      border: "1px solid rgba(255,255,255,.07)", borderRadius: "8px", color: "#94a3b8",
+      fontSize: "14px", fontFamily: "'JetBrains Mono',monospace", ...extraStyle
+    }
+  }, value || "—");
+}
+
+function makeField(label, content, accent) {
+  return el("div", { style: { marginBottom: "14px" } },
+    el("div", { style: { fontSize: "11px", color: accent || C.muted, fontWeight: "600", letterSpacing: ".6px", textTransform: "uppercase", marginBottom: "5px" } }, label),
+    content
+  );
+}
+
+function makeAdjBtn(active, onClick) {
+  return el("button", {
+    style: {
+      fontSize: "10px", padding: "3px 8px",
+      background: active ? "rgba(245,158,11,.2)" : "rgba(0,207,255,.1)",
+      border: `1px solid ${active ? "rgba(245,158,11,.5)" : "rgba(0,207,255,.3)"}`,
+      borderRadius: "5px", color: active ? C.amber : C.cyan,
+      cursor: "pointer", fontWeight: "700", fontFamily: "'Outfit',sans-serif",
+      letterSpacing: ".5px", textTransform: "uppercase", touchAction: "manipulation"
+    },
+    onClick
+  }, active ? "✕ Auto" : "✎ Adjust");
+}
+
+function nextBtn(label, color, borderCol, onClick) {
+  return el("button", {
+    style: {
+      width: "100%", padding: "14px", marginTop: "8px",
+      background: `rgba(${color},.12)`, border: `1px solid rgba(${borderCol},.4)`,
+      borderRadius: "10px", color: `rgb(${color})`, fontSize: "15px", fontWeight: "700",
+      fontFamily: "'Outfit',sans-serif", cursor: "pointer", touchAction: "manipulation"
+    },
+    onClick
+  }, label);
+}
+
+// ─── TAB: PRODUCTO ────────────────────────────────────────────────────────────
+function renderTabProducto() {
+  var d = el("div", {});
+  // Región con botón toggle
+  var regionRow = el("div", { style: { display: "flex", gap: "8px", alignItems: "center" } });
+  var regionSel = makeSelect(REGIONES, state.region, function(v) { set("region", v); }, false);
+  regionSel.style.flex = "1";
+  var otherRegion = state.region === "X Region" ? "XII Region" : (state.region === "XII Region" ? "X Region" : null);
+  regionRow.appendChild(regionSel);
+  if (otherRegion) {
+    var switchBtn = el("button", {
+      style: {
+        padding: "10px 12px", background: "rgba(0,207,255,.1)",
+        border: "1px solid rgba(0,207,255,.3)", borderRadius: "8px",
+        color: C.cyan, fontSize: "11px", fontWeight: "700",
+        cursor: "pointer", whiteSpace: "nowrap", fontFamily: "inherit",
+        touchAction: "manipulation"
+      }
+    }, "⇄ " + otherRegion.replace(" Region", ""));
+    switchBtn.addEventListener("click", function() { set("region", otherRegion); });
+    regionRow.appendChild(switchBtn);
+  }
+  d.appendChild(makeField("Production Region", regionRow));
+  d.appendChild(makeField("Condition", makeSelect(CONDICIONES, state.condicion, v => set("condicion", v), !state.region)));
+  d.appendChild(makeField("Product Family", makeSelect(getFamProductos(), state.famProducto, v => set("famProducto", v), !state.condicion)));
+  d.appendChild(makeField("Product", makeSelect(getProductos(), state.producto, v => set("producto", v), !state.famProducto)));
+  d.appendChild(makeField("Pack", makeSelect(getPacks(), state.pack, v => set("pack", v), !state.producto)));
+  if (state.region && state.pack) {
+    d.appendChild(nextBtn("Next: Destination & Freight →", "0,207,255", "0,207,255", () => setTab(1)));
+  }
+  return d;
+}
+
+// ─── TAB: DESTINO ─────────────────────────────────────────────────────────────
+function renderTabDestino() {
+  var calc = getCalc();
+  var calcBase = getCalcBase();
+  var d = el("div", {});
+
+  d.appendChild(makeField("Shipment Type", makeSelect(DESPACHOS, state.despacho, v => set("despacho", v), !state.region)));
+  d.appendChild(makeField("Country", makeSelect(getPaises(), state.pais, v => {
+    state.pais = v; state.destino = ""; state.warehouse = ""; render();
+  }, !state.despacho || getPaises().length === 0)));
+  d.appendChild(makeField("Destination", makeSelect(getDestinos(), state.destino, v => set("destino", v), !state.despacho || getDestinos().length === 0)));
+
+  if (state.despacho === "Maritime") {
+    d.appendChild(makeField("Cubicage [kg/FCL]", makeInput(state.cubicacion, v => { state.cubicacion = v; render(); }, "ej: 19500")));
+  }
+
+  // Cajas - solo HON China
+  var prodKey = `${state.region}|${state.condicion}|${state.producto}`;
+  if (PRODUCTOS_CAJAS.has(prodKey) && state.pack) {
+    var c = parseFloat(state.cantCajas) || 500;
+    var kg = state.pack.includes("5-6") ? 22 : 20;
+    var formula = state.region === "X Region"
+      ? `ExPlanta = 1921/(${c}×${kg})+0.09 = ${(1921/(c*kg)+0.09).toFixed(5)}`
+      : `ExPlanta = 4400/(${c}×${kg}) = ${(4400/(c*kg)).toFixed(5)}`;
+    d.appendChild(makeField("Cantidad de Cajas",
+      el("div", {},
+        makeInput(state.cantCajas, v => { state.cantCajas = v; render(); }, "500", { borderColor: "rgba(168,85,247,.45)", color: C.purple }),
+        el("div", { style: { fontSize: "10px", color: "rgba(168,85,247,.6)", marginTop: "4px" } }, formula)
+      ), C.purple
+    ));
+  }
+
+  // Flete Unit — Fresh ajustable
+  if (state.condicion === "Fresh" && state.destino) {
+    var fm = state.fleteManual;
+    var labelRow = el("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "5px" } },
+      el("span", { style: { fontSize: "11px", color: C.muted, fontWeight: "600", letterSpacing: ".6px", textTransform: "uppercase" } }, "Freight Unit [USD/kg]"),
+      makeAdjBtn(fm.active, () => {
+        state.fleteManual = { active: !fm.active, value: !fm.active ? (calcBase?.fleteUnit != null ? fmt(calcBase.fleteUnit, 2) : "") : "" };
+        render();
+      })
+    );
+    var fleteContent;
+    if (fm.active) {
+      fleteContent = el("div", {},
+        makeInput(fm.value, v => { state.fleteManual.value = v; render(); }, calcBase?.fleteUnit != null ? fmt(calcBase.fleteUnit, 2) : "0.00", { borderColor: "rgba(245,158,11,.5)", color: C.amber }),
+        el("div", { style: { fontSize: "10px", color: "rgba(245,158,11,.7)", marginTop: "3px" } }, `✎ Auto: ${calcBase?.fleteUnit != null ? fmt(calcBase.fleteUnit, 2) : "—"} USD/kg`)
+      );
+    } else {
+      fleteContent = makeLocked(calc?.fleteUnit != null ? fmt(calc.fleteUnit, 2) : "—");
+    }
+    d.appendChild(el("div", { style: { marginBottom: "14px" } }, labelRow, fleteContent));
+  }
+
+  // Tara — Fresh ajustable
+  if (state.condicion === "Fresh" && state.pack) {
+    var tm = state.taraManual;
+    var labelRow = el("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "5px" } },
+      el("span", { style: { fontSize: "11px", color: C.muted, fontWeight: "600", letterSpacing: ".6px", textTransform: "uppercase" } }, "Tare"),
+      makeAdjBtn(tm.active, () => {
+        state.taraManual = { active: !tm.active, value: !tm.active ? (getCalcBase()?.tara != null ? fmt(getCalcBase().tara, 4) : "") : "" };
+        render();
+      })
+    );
+    var taraContent;
+    if (tm.active) {
+      taraContent = el("div", {},
+        makeInput(tm.value, v => { state.taraManual.value = v; render(); }, "1.2000", { borderColor: "rgba(245,158,11,.5)", color: C.amber }),
+        el("div", { style: { fontSize: "10px", color: "rgba(245,158,11,.7)", marginTop: "3px" } }, `✎ Auto: ${getCalcBase()?.tara != null ? fmt(getCalcBase().tara, 4) : "—"}`)
+      );
+    } else {
+      var calc2 = getCalc();
+      taraContent = makeLocked(calc2?.tara != null ? fmt(calc2.tara, 4) : "—",
+        tm.active ? { borderColor: "rgba(245,158,11,.4)", color: C.amber } : {});
+    }
+    d.appendChild(el("div", { style: { marginBottom: "14px" } }, labelRow, taraContent));
+  }
+
+  // Tara locked for Frozen
+  if (state.condicion === "Frozen") {
+    var calc2 = getCalc();
+    d.appendChild(makeField("Tare", makeLocked(calc2?.tara != null ? fmt(calc2.tara, 4) : "—")));
+  }
+
+  // Freight
+  var calc2 = getCalc();
+  var freightStyle = (state.fleteManual.active || state.taraManual.active) ? { borderColor: "rgba(245,158,11,.25)", color: C.amber } : {};
+  d.appendChild(makeField("Freight [USD/kg PT]",
+    el("div", {},
+      makeLocked(calc2?.freight != null ? fmt(calc2.freight, 5) : "—", freightStyle),
+      (state.fleteManual.active || state.taraManual.active) && calc2?.freight != null
+        ? el("div", { style: { fontSize: "10px", color: "rgba(245,158,11,.6)", marginTop: "3px" } },
+            `= ${state.fleteManual.active ? (state.fleteManual.value || "—") : fmt(calc2.fleteUnit, 2)} × ${state.taraManual.active ? (state.taraManual.value || "—") : fmt(calc2.tara, 4)}`)
+        : null
+    )
+  ));
+
+  if (state.destino) {
+    d.appendChild(nextBtn("Next: Costs →", "52,211,153", "52,211,153", () => setTab(2)));
+  }
+  return d;
+}
+
+// ─── TAB: COSTOS ──────────────────────────────────────────────────────────────
+function renderTabCostos() {
+  var calc = getCalc();
+  var mercado = getMercadoFromDestino(state.destino);
+  var isUSA = mercado === "USA";
+  var d = el("div", {});
+
+  // Costos card
+  var costos = el("div", { style: { background: C.card, borderRadius: "12px", border: `1px solid ${C.border}`, padding: "14px", marginBottom: "14px" } });
+  costos.appendChild(el("div", { style: { fontSize: "11px", color: C.amber, letterSpacing: "2px", textTransform: "uppercase", fontWeight: "600", marginBottom: "10px" } }, "③ Production Costs"));
+
+  [
+    ["Yield", calc?.yield_ ? (calc.yield_ * 100).toFixed(3) + "%" : "—"],
+    ["CV",   calc?.cv   != null ? fmt(calc.cv) : "—"],
+    ["CE",   calc?.ce   != null ? fmt(calc.ce) : "—"],
+    ["CF/kg PT", calc?.cf != null ? fmt(calc.cf, 5) : "—"],
+    ["Ex Plant", calc?.exp != null ? fmt(calc.exp, 5) : "—"],
+    ["Cold Storage", calc?.frig != null ? fmt(calc.frig) : "—"],
+  ].forEach(([l, v]) => {
+    costos.appendChild(el("div", { style: { display: "flex", justifyContent: "space-between", padding: "6px 0", borderBottom: "1px solid rgba(255,255,255,.04)" } },
+      el("span", { style: { fontSize: "13px", color: C.muted } }, l),
+      el("span", { style: { fontSize: "14px", color: "#94a3b8", fontFamily: "'JetBrains Mono',monospace", fontWeight: "600" } }, v)
+    ));
+  });
+  if (calc?.gfob != null) {
+    costos.appendChild(el("div", { style: { display: "flex", justifyContent: "space-between", padding: "8px 0 0", marginTop: "4px", borderTop: `1px solid rgba(0,207,255,.2)` } },
+      el("span", { style: { fontSize: "13px", color: C.cyan, fontWeight: "600" } }, "GFOB Total"),
+      el("span", { style: { fontSize: "15px", color: C.cyan, fontFamily: "'JetBrains Mono',monospace", fontWeight: "700" } }, fmt(calc.gfob))
+    ));
+  }
+  d.appendChild(costos);
+
+  // USA gastos
+  if (isUSA) {
+    var usa = el("div", { style: { background: C.card, borderRadius: "12px", border: `1px solid ${C.border}`, padding: "14px", marginBottom: "14px" } });
+    usa.appendChild(el("div", { style: { fontSize: "11px", color: C.red, letterSpacing: "2px", textTransform: "uppercase", fontWeight: "600", marginBottom: "10px" } }, "④ USA Costs"));
+    usa.appendChild(makeField("Warehouse", makeSelect(getWarehouses(), state.warehouse, v => set("warehouse", v), false)));
+    // Warehouse Cost — adjustable
+    var wm = state.whManual;
+    var calcBase2 = getCalcBase();
+    var whLabelRow = el("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "5px" } },
+      el("span", { style: { fontSize: "11px", color: C.muted, fontWeight: "600", letterSpacing: ".6px", textTransform: "uppercase" } }, "Warehouse Cost [USD/lb]"),
+      makeAdjBtn(wm.active, () => {
+        state.whManual = { active: !wm.active, value: !wm.active ? (calcBase2?.wh_total != null ? fmt(calcBase2.wh_total, 4) : "") : "" };
+        render();
+      })
+    );
+    var whContent;
+    if (wm.active) {
+      whContent = el("div", {},
+        makeInput(wm.value, v => { state.whManual.value = v; render(); }, calcBase2?.wh_total != null ? fmt(calcBase2.wh_total, 4) : "0.0000",
+          { borderColor: "rgba(245,158,11,.5)", color: C.amber }),
+        el("div", { style: { fontSize: "10px", color: "rgba(245,158,11,.7)", marginTop: "3px" } },
+          "✎ Auto: " + (calcBase2?.wh_total != null ? fmt(calcBase2.wh_total, 4) : "—") + " USD/lb")
+      );
+    } else {
+      whContent = makeLocked(calc?.wh_total != null ? fmt(calc.wh_total, 4) : "—",
+        wm.active ? { borderColor: "rgba(245,158,11,.4)", color: C.amber } : {});
+    }
+    usa.appendChild(el("div", { style: { marginBottom: "14px" } }, whLabelRow, whContent));
+
+    [
+      ["Commission 2%",  calc?.commission != null ? fmt(calc.commission, 5) : "—"],
+      ["Total USA Costs",       calc?.total_ae != null ? fmt(calc.total_ae) : "—"],
+    ].forEach(([l, v]) => {
+      usa.appendChild(el("div", { style: { display: "flex", justifyContent: "space-between", padding: "6px 0", borderBottom: "1px solid rgba(255,255,255,.04)" } },
+        el("span", { style: { fontSize: "13px", color: C.muted } }, l),
+        el("span", { style: { fontSize: "14px", color: "#94a3b8", fontFamily: "'JetBrains Mono',monospace", fontWeight: "600" } }, v)
+      ));
+    });
+    // Tariff % — adjustable
+    var tm2 = state.tariffManual;
+    var autoPct = (10).toFixed(2); // default 10%
+    var tariffLabelRow = el("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "5px" } },
+      el("span", { style: { fontSize: "11px", color: C.muted, fontWeight: "600", letterSpacing: ".6px", textTransform: "uppercase" } }, "Tariff %"),
+      makeAdjBtn(tm2.active, () => {
+        state.tariffManual = { active: !tm2.active, value: !tm2.active ? autoPct : "" };
+        render();
+      })
+    );
+    var tariffContent;
+    if (tm2.active) {
+      tariffContent = el("div", {},
+        el("div", { style: { display: "flex", alignItems: "center", gap: "6px" } },
+          makeInput(tm2.value, v => { state.tariffManual.value = v; render(); }, autoPct,
+            { borderColor: "rgba(245,158,11,.5)", color: C.amber, flex: "1" }),
+          el("span", { style: { fontSize: "14px", color: C.amber, fontWeight: "700" } }, "%")
+        ),
+        el("div", { style: { fontSize: "10px", color: "rgba(245,158,11,.7)", marginTop: "3px" } },
+          "✎ Auto: " + autoPct + "% · Value: " + (calc?.tariff_val != null ? fmt(calc.tariff_val, 5) : "—") + " USD/lb")
+      );
+    } else {
+      tariffContent = el("div", { style: { display: "flex", gap: "8px", alignItems: "center" } },
+        makeLocked((calc?.tariff_pct_used != null ? (calc.tariff_pct_used * 100).toFixed(2) : "10.00") + "%"),
+        el("span", { style: { fontSize: "12px", color: C.muted } }, "→"),
+        makeLocked(calc?.tariff_val != null ? fmt(calc.tariff_val, 5) + " USD/lb" : "—")
+      );
+    }
+    usa.appendChild(el("div", { style: { marginBottom: "14px" } }, tariffLabelRow, tariffContent));
+    d.appendChild(usa);
+  }
+
+  // Sales Price
+  var spInput = el("input", {
+    type: "text",
+    inputmode: "decimal",
+    placeholder: "ej: 5.42",
+    value: state.sp || "",
+    style: {
+      width: "100%", padding: "14px 12px",
+      background: "rgba(255,255,255,.05)",
+      border: `2px solid ${state.sp ? "rgba(0,207,255,.6)" : C.border}`,
+      borderRadius: "8px", color: C.cyan, fontSize: "20px", fontWeight: "700",
+      fontFamily: "'JetBrains Mono',monospace", outline: "none"
+    }
+  });
+  spInput.addEventListener("blur", function(e) {
+    var norm = e.target.value.replace(",", ".");
+    e.target.value = norm;
+    state.sp = norm;
+    render();
+  });
+  var isUSAnow = calc ? calc.isUSA : (state.destino && state.destino.toLowerCase().includes("usa"));
+  var spLabelText = isUSAnow ? "Sales Price [USD/lb]" : "Sales Price [USD/kg PT]";
+  var spFieldDiv = makeField(spLabelText, spInput, C.cyan);
+  if (isUSAnow) {
+    spFieldDiv.appendChild(el("div", { style: { fontSize: "10px", color: "rgba(0,207,255,.55)", marginTop: "3px" } }, "USA Market · enter in USD/lb"));
+  }
+  d.appendChild(spFieldDiv);
+
+  if (state.sp) {
+    var col = calc?.rmp != null ? rmpColor(calc.rmp) : C.cyan;
+    var colRGB = col === C.green ? "52,211,153" : col === C.amber ? "245,158,11" : col === C.red ? "248,113,113" : "0,207,255";
+    var label = calc?.rmp != null ? `Ver Resultado: $${calc.rmp.toFixed(4)} →` : "Ver Resultado →";
+    d.appendChild(nextBtn(label, colRGB, colRGB, () => setTab(3)));
+  }
+  return d;
+}
+
+// ─── TAB: RESULTADO ───────────────────────────────────────────────────────────
+function renderTabResultado() {
+  var calc = getCalc();
+  var col = rmpColor(calc?.rmp);
+  var d = el("div", { style: { paddingBottom: "20px" } });
+
+  // RMP big card
+  var rmpCard = el("div", { style: { textAlign: "center", padding: "24px 16px 20px", background: "rgba(255,255,255,.03)", borderRadius: "14px", border: `1px solid ${C.border}`, marginBottom: "14px" } });
+  rmpCard.appendChild(el("div", { style: { fontSize: "11px", color: C.muted, letterSpacing: "2px", textTransform: "uppercase", marginBottom: "6px" } }, "Raw Material Return"));
+  rmpCard.appendChild(el("div", { style: { fontSize: "50px", fontWeight: "700", color: col, fontFamily: "'JetBrains Mono',monospace", lineHeight: "1" } },
+    calc?.rmp != null ? `$${calc.rmp.toFixed(4)}` : "—"
+  ));
+  rmpCard.appendChild(el("div", { style: { fontSize: "12px", color: C.muted, marginTop: "6px" } }, "USD / kg WFE"));
+  if (calc?.tde != null) {
+    rmpCard.appendChild(el("div", { style: { marginTop: "12px" } },
+      el("div", { style: { padding: "8px 16px", background: "rgba(0,207,255,.06)", borderRadius: "8px", display: "inline-block" } },
+        el("span", { style: { fontSize: "11px", color: C.muted } }, "Trim D Eq  "),
+        el("span", { style: { fontSize: "16px", fontWeight: "700", color: C.cyan, fontFamily: "'JetBrains Mono',monospace" } }, `$${calc.tde.toFixed(4)}`)
+      )
+    ));
+  }
+  if (calc?.fob_price != null) {
+    rmpCard.appendChild(el("div", { style: { marginTop: "6px" } },
+      el("div", { style: { padding: "6px 16px", background: "rgba(255,255,255,.03)", borderRadius: "8px", display: "inline-block" } },
+        el("span", { style: { fontSize: "11px", color: C.muted } }, "FOB Price  "),
+        el("span", { style: { fontSize: "14px", fontWeight: "600", color: "#94a3b8", fontFamily: "'JetBrains Mono',monospace" } }, `$${calc.fob_price.toFixed(4)}`)
+      )
+    ));
+  }
+  d.appendChild(rmpCard);
+
+  // Desglose
+  if (calc?.rmp != null) {
+    var desc = el("div", { style: { background: C.card, borderRadius: "14px", border: `1px solid ${C.border}`, padding: "16px", marginBottom: "14px" } });
+    desc.appendChild(el("div", { style: { fontSize: "11px", color: C.cyan, letterSpacing: "2px", textTransform: "uppercase", marginBottom: "12px", fontWeight: "600" } }, "Breakdown"));
+    var rows = [
+      ["Sales Price", `$${fmt(calc.sp_kg, 4)}`, C.text],
+      ...(calc.isUSA ? [["_USA_HEADER_", null, null]] : []),
+      ["− Freight",          `− $${fmt(calc.freight, 5)}`,    C.red],
+      ["= FOB Price",        `$${fmt(calc.fob_price, 4)}`,    C.cyan],
+      ["− GFOB",             `− $${fmt(calc.gfob, 4)}`,       C.red],
+      ["= Net Return",     `$${fmt(calc.retorno, 4)}`,      C.text],
+      ["× Yield", `${calc.yield_ != null ? (calc.yield_ * 100).toFixed(3) : "—"}%`, "#94a3b8"],
+      ["= RMP", `$${fmt(calc.rmp, 4)}`, col],
+    ];
+    var usaOpen = false;
+    rows.forEach(function(row) {
+      var l = row[0], v = row[1], c = row[2];
+      if (l === "_USA_HEADER_") {
+        // Collapsible Gastos USA header
+        var usaHeader = el("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", padding: "6px 0", borderBottom: "1px solid rgba(255,255,255,.04)", cursor: "pointer" }});
+        var usaLabel = el("span", { style: { fontSize: "12px", color: C.muted } }, "▸ − Gastos USA");
+        var usaVal   = el("span", { style: { fontSize: "13px", color: C.red, fontFamily: "'JetBrains Mono',monospace", fontWeight: "700" } },
+          "− $" + fmt(calc.total_ae / 0.4536, 4));
+        usaHeader.appendChild(usaLabel);
+        usaHeader.appendChild(usaVal);
+
+        // Detail rows (hidden by default)
+        var usaDetail = el("div", { style: { display: "none" } });
+        [
+          ["  · WH Cost",        "− $" + fmt(calc.wh_total   / 0.4536, 4)],
+          ["  · Commission 2%",  "− $" + fmt(calc.commission / 0.4536, 4)],
+          ["  · Tariff 10%",     "− $" + fmt(calc.tariff_val / 0.4536, 4)],
+        ].forEach(function(dr) {
+          usaDetail.appendChild(el("div", { style: { display: "flex", justifyContent: "space-between", padding: "4px 0 4px 10px", borderBottom: "1px solid rgba(255,255,255,.04)" } },
+            el("span", { style: { fontSize: "11px", color: "rgba(148,163,184,.6)" } }, dr[0]),
+            el("span", { style: { fontSize: "12px", color: C.red, fontFamily: "'JetBrains Mono',monospace" } }, dr[1])
+          ));
+        });
+
+        usaHeader.addEventListener("click", function() {
+          usaOpen = !usaOpen;
+          usaDetail.style.display = usaOpen ? "block" : "none";
+          usaLabel.textContent = (usaOpen ? "▾" : "▸") + " − Gastos USA";
+        });
+        desc.appendChild(usaHeader);
+        desc.appendChild(usaDetail);
+        return;
+      }
+      desc.appendChild(el("div", { style: { display: "flex", justifyContent: "space-between", padding: "5px 0", borderBottom: "1px solid rgba(255,255,255,.04)" } },
+        el("span", { style: { fontSize: "12px", color: C.muted } }, l),
+        el("span", { style: { fontSize: "13px", color: c, fontFamily: "'JetBrains Mono',monospace", fontWeight: "600" } }, v)
+      ));
+    });
+    d.appendChild(desc);
+
+    // Sensibilidad
+    var sens = el("div", { style: { background: C.card, borderRadius: "14px", border: `1px solid ${C.border}`, padding: "16px" } });
+    sens.appendChild(el("div", { style: { fontSize: "11px", color: C.cyan, letterSpacing: "2px", textTransform: "uppercase", marginBottom: "10px", fontWeight: "600" } }, "SP Sensitivity ±$0.30"));
+    var table = el("table", { style: { width: "100%", borderCollapse: "collapse", fontSize: "12px" } });
+    var thead = el("tr", {});
+    ["SP", "RMP", "Trim D Eq"].forEach(h => {
+      thead.appendChild(el("th", { style: { textAlign: "right", color: C.muted, fontWeight: "600", paddingBottom: "6px", fontSize: "11px" } }, h));
+    });
+    table.appendChild(el("thead", {}, thead));
+    var tbody = el("tbody", {});
+    [-0.30, -0.20, -0.10, 0, 0.10, 0.20, 0.30].forEach(d2 => {
+      var sp2 = parseFloat(state.sp) + d2;
+      if (sp2 <= 0) return;
+      var fl = state.fleteManual.active && state.fleteManual.value ? parseFloat(state.fleteManual.value) : null;
+      var tr2 = state.taraManual.active && state.taraManual.value ? parseFloat(state.taraManual.value) : null;
+      var c2 = calcAll({ ...state, sp: String(sp2.toFixed(2)) }, fl, parseFloat(state.cantCajas) || 500, tr2);
+      var isBase = Math.abs(d2) < 0.001;
+      var rc = rmpColor(c2?.rmp);
+      var row = el("tr", { style: { background: isBase ? "rgba(0,207,255,.08)" : "transparent" } });
+      row.appendChild(el("td", { style: { textAlign: "right", padding: "5px 0", fontFamily: "'JetBrains Mono',monospace", color: isBase ? C.cyan : C.text, fontWeight: isBase ? "700" : "400" } },
+        (isBase ? "▶ " : "") + sp2.toFixed(2)));
+      row.appendChild(el("td", { style: { textAlign: "right", padding: "5px 0 5px 12px", fontFamily: "'JetBrains Mono',monospace", color: rc, fontWeight: "600" } },
+        c2?.rmp != null ? c2.rmp.toFixed(4) : "—"));
+      row.appendChild(el("td", { style: { textAlign: "right", padding: "5px 0 5px 12px", fontFamily: "'JetBrains Mono',monospace", color: "#94a3b8" } },
+        c2?.tde != null ? c2.tde.toFixed(4) : "—"));
+      tbody.appendChild(row);
+    });
+    table.appendChild(tbody);
+    sens.appendChild(table);
+    d.appendChild(sens);
+  } else {
+    d.appendChild(el("div", { style: { textAlign: "center", padding: "40px", color: C.muted, fontSize: "14px" } }, "Complete the fields to see the result"));
+  }
+
+  // Save to Favorites button
+  if (calc?.rmp != null) {
+    var saveBlock = el("div", { style: { marginTop: "14px" } });
+    if (!state.saveMode) {
+      var saveBtn = el("button", {
+        style: { width: "100%", padding: "14px", background: "rgba(250,204,21,.08)",
+          border: "1px solid rgba(250,204,21,.3)", borderRadius: "12px", color: "#facc15",
+          fontSize: "14px", fontWeight: "700", cursor: "pointer", fontFamily: "inherit",
+          touchAction: "manipulation" }
+      }, "☆  Save to Favorites");
+      saveBtn.addEventListener("click", function() { state.saveMode = true; render(); setTab(3); window.scrollTo(0,0); });
+      saveBlock.appendChild(saveBtn);
+    } else {
+      var row = el("div", { style: { display: "flex", gap: "8px" } });
+      var inp = el("input", { type: "text", placeholder: "Name this favorite...",
+        style: { flex: "1", padding: "12px", background: "rgba(255,255,255,.06)",
+          border: "1px solid rgba(250,204,21,.4)", borderRadius: "10px", color: "#fff",
+          fontSize: "14px", fontFamily: "inherit", outline: "none", WebkitAppearance: "none" }
+      });
+      inp.value = state.saveName || "";
+      inp.addEventListener("input", function(e) { state.saveName = e.target.value; });
+      inp.addEventListener("keydown", function(e) { if (e.key === "Enter") saveFav(state.saveName); });
+      var okBtn = el("button", {
+        style: { padding: "12px 16px", background: "rgba(250,204,21,.18)",
+          border: "1px solid rgba(250,204,21,.5)", borderRadius: "10px", color: "#facc15",
+          fontSize: "18px", fontWeight: "700", cursor: "pointer", fontFamily: "inherit",
+          touchAction: "manipulation" }
+      }, "＋");
+      okBtn.addEventListener("click", function() { saveFav(inp.value); });
+      var cancelBtn = el("button", {
+        style: { padding: "12px", background: "transparent",
+          border: "1px solid rgba(255,255,255,.12)", borderRadius: "10px", color: "#64748b",
+          fontSize: "14px", cursor: "pointer", fontFamily: "inherit", touchAction: "manipulation" }
+      }, "✕");
+      cancelBtn.addEventListener("click", function() { state.saveMode = false; render(); });
+      row.appendChild(inp); row.appendChild(okBtn); row.appendChild(cancelBtn);
+      saveBlock.appendChild(row);
+      setTimeout(function() { inp.focus(); }, 80);
+    }
+    d.appendChild(saveBlock);
+  }
+
+  // Boton cambio region (solo si el mismo producto existe en la otra region)
+  var otherRegionR = state.region === "X Region" ? "XII Region" : (state.region === "XII Region" ? "X Region" : null);
+  if (otherRegionR && state.producto) {
+    var altKey = otherRegionR + "|" + state.condicion + "|" + state.producto;
+    if (D.products[altKey]) {
+      var switchCard = el("div", { style: {
+        marginTop: "16px", padding: "14px 16px",
+        background: "rgba(0,207,255,.04)",
+        border: "1px solid rgba(0,207,255,.15)",
+        borderRadius: "14px", textAlign: "center"
+      }});
+      switchCard.appendChild(el("div", { style: {
+        fontSize: "11px", color: C.muted, marginBottom: "10px",
+        letterSpacing: "1px", textTransform: "uppercase"
+      }}, "Comparar con otra region"));
+      var swBtn = el("button", { style: {
+        width: "100%", padding: "14px",
+        background: "rgba(0,207,255,.12)",
+        border: "1px solid rgba(0,207,255,.35)",
+        borderRadius: "10px", color: C.cyan,
+        fontSize: "15px", fontWeight: "700",
+        cursor: "pointer", fontFamily: "inherit",
+        touchAction: "manipulation"
+      }}, "Switch to " + otherRegionR.replace(" Region", ""));
+      swBtn.addEventListener("click", function() {
+        // Cambio directo de region sin cascade reset
+        state.region = otherRegionR;
+        state.fleteManual = { active: false, value: "" };
+        state.taraManual  = { active: false, value: "" };
+        state.whManual    = { active: false, value: "" };
+        render();
+        setTab(3);
+      });
+      switchCard.appendChild(swBtn);
+      d.appendChild(switchCard);
+    }
+  }
+
+  return d;
+}
+
+// ─── MAIN RENDER ──────────────────────────────────────────────────────────────
+function setTab(i) { state.tab = i; render(); window.scrollTo(0, 0); }
+
+function render() {
+  var app = $("app");
+  if (!app) return;
+  var calc = getCalc();
+  var col = rmpColor(calc?.rmp);
+
+  app.innerHTML = "";
+
+  // Header
+  var hdr = el("div", { style: {
+    background: "rgba(0,0,0,.5)", borderBottom: `1px solid ${C.border}`,
+    padding: "12px 16px", display: "flex", alignItems: "center", gap: "10px",
+    position: "sticky", top: "0", zIndex: "10", backdropFilter: "blur(12px)"
+  }});
+  var logoImg = el("img", { src: LOGO_SRC, alt: "Multi X", style: { height: "28px", mixBlendMode: "screen" } });
+  var titleDiv = el("div", {},
+    el("div", { style: { fontSize: "13px", fontWeight: "700", color: C.text, lineHeight: "1.1" } }, "Raw Material Return"),
+    el("div", { style: { fontSize: "10px", color: C.muted } }, "HON Fillets · H1 26")
+  );
+  hdr.appendChild(logoImg);
+  hdr.appendChild(titleDiv);
+  // RMP badge + Favorites button
+  var rightDiv = el("div", { style: { marginLeft: "auto", display: "flex", alignItems: "center", gap: "10px" } });
+  if (calc?.rmp != null) {
+    rightDiv.appendChild(el("div", { style: { textAlign: "right" } },
+      el("div", { style: { fontSize: "10px", color: C.muted } }, "RMP"),
+      el("div", { style: { fontSize: "18px", fontWeight: "700", color: col, fontFamily: "'JetBrains Mono',monospace" } }, "$" + calc.rmp.toFixed(3))
+    ));
+  }
+  var favsBtn = el("button", {
+    style: { padding: "7px 10px", background: state.favsOpen ? "rgba(250,204,21,.15)" : "rgba(255,255,255,.05)",
+      border: "1px solid " + (state.favsOpen ? "rgba(250,204,21,.5)" : "rgba(255,255,255,.12)"),
+      borderRadius: "8px", color: state.favsOpen ? "#facc15" : C.muted,
+      fontSize: "13px", fontWeight: "700", cursor: "pointer", fontFamily: "inherit",
+      touchAction: "manipulation", flexShrink: "0" }
+  }, "☆" + (favs.length > 0 ? " " + favs.length : ""));
+  favsBtn.addEventListener("click", function() { state.favsOpen = !state.favsOpen; state.saveMode = false; render(); });
+  rightDiv.appendChild(favsBtn);
+  hdr.appendChild(rightDiv);
+  app.appendChild(hdr);
+
+  // ── Favorites Panel ────────────────────────────────────────────────────────
+  if (state.favsOpen) {
+    var favsPanel = el("div", { style: { background: "rgba(250,204,21,.04)", borderBottom: "1px solid rgba(250,204,21,.15)", padding: "14px 16px" } });
+
+    // Header row
+    var fpHead = el("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px" } });
+    fpHead.appendChild(el("div", { style: { fontSize: "11px", fontWeight: "700", color: "#facc15", letterSpacing: "2px", textTransform: "uppercase" } }, "☆ Saved Favorites"));
+    if (state.compareIds.length === 2) {
+      var clearBtn = el("button", {
+        style: { padding: "4px 10px", background: "rgba(99,102,241,.15)", border: "1px solid rgba(99,102,241,.4)",
+          borderRadius: "6px", color: "#818cf8", fontSize: "11px", fontWeight: "600",
+          cursor: "pointer", fontFamily: "inherit", touchAction: "manipulation" }
+      }, "✕ Clear");
+      clearBtn.addEventListener("click", function() { state.compareIds = []; render(); });
+      fpHead.appendChild(clearBtn);
+    } else if (state.compareIds.length === 1) {
+      fpHead.appendChild(el("div", { style: { fontSize: "11px", color: C.muted, fontStyle: "italic" } }, "Select one more"));
+    }
+    favsPanel.appendChild(fpHead);
+
+    if (favs.length === 0) {
+      favsPanel.appendChild(el("div", { style: { fontSize: "12px", color: C.muted, fontStyle: "italic" } }, "No favorites yet. Calculate a result and tap Save."));
+    }
+
+    // Cards
+    favs.forEach(function(fav) {
+      var sel = state.compareIds.includes(fav.id);
+      var selIdx = state.compareIds.indexOf(fav.id);
+      var card = el("div", { style: { display: "flex", alignItems: "center", gap: "10px",
+        background: sel ? "rgba(99,102,241,.1)" : "rgba(255,255,255,.03)",
+        border: "1px solid " + (sel ? "rgba(99,102,241,.5)" : "rgba(250,204,21,.2)"),
+        borderRadius: "10px", padding: "10px 12px", marginBottom: "8px" } });
+
+      // Compare toggle
+      var cmpBtn = el("button", {
+        style: { width: "24px", height: "24px", flexShrink: "0", borderRadius: "6px",
+          background: sel ? "rgba(99,102,241,.3)" : "rgba(255,255,255,.06)",
+          border: "1px solid " + (sel ? "rgba(99,102,241,.7)" : "rgba(255,255,255,.15)"),
+          color: sel ? "#a5b4fc" : C.muted, fontSize: "10px", fontWeight: "700",
+          cursor: "pointer", fontFamily: "inherit", touchAction: "manipulation" }
+      }, sel ? String(selIdx + 1) : "⊞");
+      cmpBtn.addEventListener("click", function() { toggleCompare(fav.id); });
+      card.appendChild(cmpBtn);
+
+      // Info → load on click
+      var info = el("div", { style: { flex: "1", cursor: "pointer", minWidth: "0" } });
+      info.appendChild(el("div", { style: { fontSize: "13px", fontWeight: "700", color: sel ? "#a5b4fc" : "#facc15", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" } }, fav.name));
+      var sub = [fav.form.region, fav.form.producto, fav.form.destino].filter(Boolean).join(" · ");
+      if (sub) info.appendChild(el("div", { style: { fontSize: "10px", color: C.muted, marginTop: "2px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" } }, sub));
+      if (fav.form.sp) info.appendChild(el("div", { style: { fontSize: "10px", color: C.cyan, marginTop: "1px" } }, "SP " + fav.form.sp));
+      info.addEventListener("click", function() { loadFav(fav); });
+      card.appendChild(info);
+
+      // Delete
+      var delBtn = el("button", {
+        style: { background: "none", border: "none", color: "rgba(239,68,68,.5)", fontSize: "16px",
+          cursor: "pointer", padding: "2px", flexShrink: "0", touchAction: "manipulation" }
+      }, "✕");
+      delBtn.addEventListener("click", function() { deleteFav(fav.id); });
+      card.appendChild(delBtn);
+      favsPanel.appendChild(card);
+    });
+
+    // ── Comparison table ──────────────────────────────────────────────────────
+    if (state.compareIds.length === 2) {
+      var fa = favs.find(function(f) { return f.id === state.compareIds[0]; });
+      var fb = favs.find(function(f) { return f.id === state.compareIds[1]; });
+      if (fa && fb) {
+        var ca = calcFav(fa), cb = calcFav(fb);
+        if (ca && cb) {
+          var wfe = function(v, y) { return (v != null && y != null) ? v * y : null; };
+          var usaVal = function(c, v) { return c.isUSA ? v : 0; };
+          var fmtN = function(v, d) { return (v != null && isFinite(v)) ? v.toFixed(d != null ? d : 4) : "—"; };
+          var fmtPct = function(v) { return (v != null && isFinite(v)) ? (v * 100).toFixed(2) + " %" : "—"; };
+          var dlt = function(va, vb, d) {
+            if (va == null || vb == null || !isFinite(va) || !isFinite(vb)) return { txt: "—", pos: null };
+            var diff = va - vb;
+            var pos = diff > 0.0001 ? true : diff < -0.0001 ? false : null;
+            return { txt: (pos === true ? "+" : "") + diff.toFixed(d != null ? d : 4), pos: pos };
+          };
+          var dltPct = function(va, vb) {
+            if (va == null || vb == null) return { txt: "—", pos: null };
+            var diff = (va - vb) * 100;
+            var pos = diff > 0.001 ? true : diff < -0.001 ? false : null;
+            return { txt: (pos === true ? "+" : "") + diff.toFixed(2) + " %", pos: pos };
+          };
+          var dColor = function(pos) { return pos === true ? "#4ade80" : pos === false ? "#f87171" : C.muted; };
+
+          var tbl = el("div", { style: { background: "rgba(0,0,0,.3)", border: "1px solid rgba(99,102,241,.25)", borderRadius: "10px", overflow: "hidden", marginTop: "14px" } });
+
+          // Table header
+          var thRow = el("div", { style: { display: "grid", gridTemplateColumns: "1fr 80px 80px 72px", padding: "8px 10px", background: "rgba(99,102,241,.1)", borderBottom: "1px solid rgba(99,102,241,.2)" } });
+          thRow.appendChild(el("div", { style: { fontSize: "10px", color: C.muted, letterSpacing: "1px", textTransform: "uppercase" } }, ""));
+          thRow.appendChild(el("div", { style: { fontSize: "10px", fontWeight: "700", color: "#a5b4fc", textAlign: "right", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" } }, "① " + fa.name));
+          thRow.appendChild(el("div", { style: { fontSize: "10px", fontWeight: "700", color: "#67e8f9", textAlign: "right", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" } }, "② " + fb.name));
+          thRow.appendChild(el("div", { style: { fontSize: "10px", color: C.muted, textAlign: "right" } }, "Δ"));
+          tbl.appendChild(thRow);
+
+          var showUSA = ca.isUSA || cb.isUsA || cb.isUSA;
+          var cmpRows = [
+            { label: "Yield",         isPct: true,  vA: ca.yield_,  vB: cb.yield_ },
+            { label: "SP",            unit: "WFE",  vA: wfe(ca.sp_kg, ca.yield_), vB: wfe(cb.sp_kg, cb.yield_) },
+          ];
+          if (showUSA) {
+            cmpRows.push({ label: "− USA Costs", unit: "WFE", bold: true, sep: true, collapsible: true,
+              vA: wfe(-usaVal(ca, ca.total_ae/0.4536), ca.yield_), vB: wfe(-usaVal(cb, cb.total_ae/0.4536), cb.yield_) });
+            if (state.usaExpanded) {
+              cmpRows.push({ label: "· WH",   unit: "WFE", indent: true, vA: wfe(-usaVal(ca, ca.wh_total/0.4536),   ca.yield_), vB: wfe(-usaVal(cb, cb.wh_total/0.4536),   cb.yield_) });
+              cmpRows.push({ label: "· Comm",  unit: "WFE", indent: true, vA: wfe(-usaVal(ca, ca.commission/0.4536), ca.yield_), vB: wfe(-usaVal(cb, cb.commission/0.4536), cb.yield_) });
+              cmpRows.push({ label: "· Tariff",unit: "WFE", indent: true, vA: wfe(-usaVal(ca, ca.tariff_val/0.4536), ca.yield_), vB: wfe(-usaVal(cb, cb.tariff_val/0.4536), cb.yield_) });
+            }
+          }
+          cmpRows = cmpRows.concat([
+            { label: "− Freight",    unit: "WFE",  sep: true, vA: wfe(-ca.freight, ca.yield_), vB: wfe(-cb.freight, cb.yield_) },
+            { label: "FOB Price",    unit: "WFE",  sep: true, bold: true, vA: wfe(ca.fob_price, ca.yield_), vB: wfe(cb.fob_price, cb.yield_) },
+            { label: "− GFOB",       unit: "WFE",  vA: wfe(-ca.gfob, ca.yield_), vB: wfe(-cb.gfob, cb.yield_) },
+            { label: "RMP",          unit: "WFE",  sep: true, big: true, vA: ca.rmp, vB: cb.rmp },
+            { label: "TDE",          unit: "lb",   big: true, vA: ca.tde, vB: cb.tde },
+          ]);
+
+          cmpRows.forEach(function(row) {
+            var d_ = row.isPct ? dltPct(row.vA, row.vB) : dlt(row.vA, row.vB);
+            var vAstr = row.isPct ? fmtPct(row.vA) : fmtN(row.vA);
+            var vBstr = row.isPct ? fmtPct(row.vB) : fmtN(row.vB);
+            var bg = (row.big || row.bold || row.collapsible) ? "rgba(255,255,255,.03)" : "transparent";
+            var bdr = row.sep ? "1px solid rgba(255,255,255,.06)" : "none";
+            var r = el("div", { style: { display: "grid", gridTemplateColumns: "1fr 80px 80px 72px",
+              padding: row.indent ? "5px 10px 5px 18px" : "7px 10px", borderTop: bdr,
+              background: bg, cursor: row.collapsible ? "pointer" : "default" } });
+
+            var lbl = el("div", { style: { fontSize: row.big ? "12px" : row.indent ? "10px" : "11px",
+              fontWeight: (row.bold || row.big) ? "700" : "400",
+              color: row.big ? C.text : row.indent ? C.muted : C.label } });
+            if (row.collapsible) {
+              var arrSpan = el("span", { style: { fontSize: "9px", color: "#facc15", marginRight: "3px" } }, state.usaExpanded ? "▾" : "▸");
+              lbl.appendChild(arrSpan);
+            }
+            lbl.appendChild(document.createTextNode(row.label));
+            if (row.unit) lbl.appendChild(el("span", { style: { fontSize: "9px", color: C.muted, marginLeft: "3px" } }, row.unit));
+            r.appendChild(lbl);
+
+            var colA = row.indent ? "rgba(165,180,252,.5)" : "#a5b4fc";
+            var colB = row.indent ? "rgba(103,232,249,.5)" : "#67e8f9";
+            r.appendChild(el("div", { style: { fontSize: row.big ? "13px" : row.indent ? "10px" : "11px", fontWeight: (row.big||row.bold)?"700":"400", textAlign: "right", color: colA, fontFamily: "'JetBrains Mono',monospace" } }, vAstr));
+            r.appendChild(el("div", { style: { fontSize: row.big ? "13px" : row.indent ? "10px" : "11px", fontWeight: (row.big||row.bold)?"700":"400", textAlign: "right", color: colB, fontFamily: "'JetBrains Mono',monospace" } }, vBstr));
+            r.appendChild(el("div", { style: { fontSize: row.big ? "13px" : row.indent ? "10px" : "11px", fontWeight: (row.big||row.bold)?"700":"400", textAlign: "right", color: dColor(d_.pos), fontFamily: "'JetBrains Mono',monospace" } }, d_.txt));
+
+            if (row.collapsible) {
+              r.addEventListener("click", function() { state.usaExpanded = !state.usaExpanded; render(); });
+            }
+            tbl.appendChild(r);
+          });
+          favsPanel.appendChild(tbl);
+        }
+      }
+    }
+
+    app.appendChild(favsPanel);
+  }
+
+  // Tabs
+  var tabs = [{ icon: "🐟", label: "Product" }, { icon: "✈️", label: "Destination" }, { icon: "⚙️", label: "Costs" }, { icon: "💰", label: "Result" }];
+  var tabBar = el("div", { style: { display: "flex", background: "rgba(0,0,0,.3)", borderBottom: `1px solid ${C.border}`, position: "sticky", top: "53px", zIndex: "9" } });
+  tabs.forEach((t, i) => {
+    var btn = el("button", {
+      style: {
+        flex: "1", padding: "10px 4px", background: "transparent", border: "none",
+        borderBottom: `2px solid ${state.tab === i ? C.cyan : "transparent"}`,
+        color: state.tab === i ? C.cyan : C.muted, cursor: "pointer",
+        fontFamily: "'Outfit',sans-serif", fontSize: "10px", fontWeight: "600",
+        textTransform: "uppercase", letterSpacing: ".5px", touchAction: "manipulation"
+      },
+      onClick: () => setTab(i)
+    },
+      el("div", { style: { fontSize: "16px", marginBottom: "2px" } }, t.icon),
+      t.label
+    );
+    tabBar.appendChild(btn);
+  });
+  app.appendChild(tabBar);
+
+  // Content
+  var content = el("div", { style: { padding: "16px 16px 100px" } });
+  if (state.tab === 0) content.appendChild(renderTabProducto());
+  else if (state.tab === 1) content.appendChild(renderTabDestino());
+  else if (state.tab === 2) content.appendChild(renderTabCostos());
+  else content.appendChild(renderTabResultado());
+  app.appendChild(content);
+}
+
+// Init
+// Start app directly - DOMContentLoaded already fired since scripts are at bottom of body
+autoFill();
+render();
+</script>
+</body></html>
